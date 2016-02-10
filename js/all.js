@@ -137,7 +137,7 @@ jQuery(document).ready(function() {
 	    console.log(data);
 	});
 
-	// redirect to the lmt.php page
+	// redirect to the task.php page
 	window.location = '/applications/little-man-task/task.php';
     });
     

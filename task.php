@@ -1,3 +1,20 @@
+<?php
+  session_start();
+
+  include($_SERVER["DOCUMENT_ROOT"]."/code/php/AC.php");
+  $user_name = check_logged(); /// function checks if visitor is logged.
+  $admin = false;
+
+  if ($user_name == "") {
+    // user is not logged in
+
+  } else {
+    $admin = true;
+    echo('<script type="text/javascript"> user_name = "'.$user_name.'"; </script>'."\n");
+    echo('<script type="text/javascript"> admin = '.($admin?"true":"false").'; </script>'."\n");
+  }
+?>
+
 <!doctype html>
 <html>
 
@@ -167,6 +184,10 @@
 	  on_finish: function(data) {
 	      // save data on server
               jQuery.getJSON('code/php/events.php?action=mark&status=closed&user_name='+user_name, function(data) {
+		  console.log(data);
+	      });
+			
+              jQuery.post('code/php/events.php?action=save', { "data": JSON.stringify(jsPsych.data.getData()) }, function(data) {
 		  console.log(data);
 	      });
 	      

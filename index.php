@@ -19,11 +19,6 @@
    $act_subst     = $_SESSION['act_subst'];
    echo('<script type="text/javascript"> subjid = "'.$subjid.'"; </script>'."\n");
    echo('<script type="text/javascript"> session = "'.$session.'"; </script>'."\n");
-   if (isset($_SESSION['act_subst'])) {
-     echo('<script type="text/javascript"> act_subst = '.urldecode($act_subst).'; </script>'."\n");
-   } else {
-     echo('<script type="text/javascript"> act_subst = []; </script>'."\n");      
-   }
 ?>
 
 <!DOCTYPE html>
@@ -98,19 +93,7 @@
       <div class="row">
         <div class="col-md-12">
           <center>
-            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#defineSession" title="Start a new assessment session">New Session</button>
-          </center>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-light-gray">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <center>
-            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveSession" id="open-save-session">Save Session</button>
+            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#defineSession" title="Redirects to the Little-Man-Task page.">New Session</button>
           </center>
         </div>
       </div>
@@ -197,7 +180,7 @@
           <div class="col-lg-12">
             <div class="modal-body">
               <div>
-                <button id="open-calendar-button" type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-save"></i> Start Little-Man-Task</button> &nbsp;
+                <button id="open-lmt-button" type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-save"></i> Start Little-Man-Task</button> &nbsp;
                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Back</button>&nbsp;
               </div>
             </div><!-- /.modal-body -->
@@ -343,30 +326,13 @@
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
   <script src='js/moment.min.js'></script>
 
-  <!-- allow users to download tables as csv and excel -->
-<!--   <script src="js/excellentexport.min.js"></script> -->
-
   <!-- Bootstrap Core JavaScript -->
   <script src="js/bootstrap.min.js"></script>
 
   <script src="js/bootstrap-datetimepicker.js"></script>
   <script src="js/bootstrap-datepicker.js"></script>
-<!--   <script src="js/bootstrap-colorselector.js"></script> -->
 
-  <!-- Plugin JavaScript -->
-<!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script> -->
-
-  <!-- Contact Form JavaScript -->
-<!--   <script src="js/jqBootstrapValidation.js"></script> -->
-<!--   <script src="js/contact_me.js"></script> -->
-
-  <!-- Custom Theme JavaScript -->
-<!--   <script src="js/agency.js"></script> -->
-<!--   <script src='js/fullcalendar.min.js'></script> -->
-
-<!--   <script src="js/d3.v3.min.js"></script> -->
-
-   <script type="text/javascript" src="js/all.js"></script>
+  <script type="text/javascript" src="js/all.js"></script>
 
 </body>
 

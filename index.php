@@ -1,174 +1,373 @@
-<!doctype html>
-<html>
+<?php
+  session_start();
 
-  <head>
-    <title>Little Man Task</title>
-    <!-- Load jQuery -->
-    <script src="js/jquery.min.js"></script>
-    <!-- Load the jspsych library and plugins -->
-    <script src="js/jspsych/jspsych.js"></script>
-    <script src="js/jspsych/plugins/jspsych-text.js"></script>
-    <script src="js/jspsych/plugins/jspsych-single-stim.js"></script>
-    <!-- Load the stylesheet -->
-    <!-- <link href="experiment.css" type="text/css" rel="stylesheet"></link> -->
-    <link href="js/jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+  include($_SERVER["DOCUMENT_ROOT"]."/code/php/AC.php");
+  $user_name = check_logged(); /// function checks if visitor is logged.
+  $admin = false;
 
-  </head>
+  if ($user_name == "") {
+    // user is not logged in
 
-  <body>
-    <div id="jspsych_target"></div>
-  </body>
+  } else {
+    $admin = true;
+    echo('<script type="text/javascript"> user_name = "'.$user_name.'"; </script>'."\n");
+    echo('<script type="text/javascript"> admin = '.($admin?"true":"false").'; </script>'."\n");
+  }
+   // if there is a running session it would have the follow information
+   $subjid  = $_SESSION['subjid'];
+   $session = $_SESSION['sessionid'];
+   $act_subst     = $_SESSION['act_subst'];
+   echo('<script type="text/javascript"> subjid = "'.$subjid.'"; </script>'."\n");
+   echo('<script type="text/javascript"> session = "'.$session.'"; </script>'."\n");
+   if (isset($_SESSION['act_subst'])) {
+     echo('<script type="text/javascript"> act_subst = '.urldecode($act_subst).'; </script>'."\n");
+   } else {
+     echo('<script type="text/javascript"> act_subst = []; </script>'."\n");      
+   }
+?>
 
-  <script>
-    // Experiment parameters
-    var n_trials_EX = 4;
-    var n_trials = 32;
+<!DOCTYPE html>
+<html lang="en">
 
-    var stimuli=["images/1.png", "images/2.png", "images/3.png", "images/4.png", 
-    		"images/5.png", "images/6.png", "images/7.png", "images/8.png", 
-		"images/9.png", "images/10.png", "images/11.png", "images/12.png", 
-		"images/13.png", "images/14.png", "images/15.png", "images/16.png", 
-		"images/17.png", "images/18.png", "images/19.png", "images/20.png",
-		"images/21.png", "images/22.png", "images/23.png", "images/24.png",
-		"images/25.png", "images/26.png", "images/27.png", "images/28.png", 
-		"images/29.png", "images/30.png", "images/31.png", "images/32.png", 
-		];
+<head>
 
-    var stimuli_types = ["left","right","left","right","right","left",
-    			"right","left","right","right","left","left",
-			"right","left","left","right","right","left",
-			"left","right","left","right","right","left",
-			"left","right","right","right","left","left",
-			"right","left",
-			];
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
+  <title>Little-Man-Task</title>
 
-    // Example slides
-    var stimuli_EX =["images/EX 1.png", "images/EX 2.png", "images/EX 3.png", "images/EX 4.png"];
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-    var stimuli_types_EX = ["left", "left", "right", "right"];
+  <!-- Custom CSS -->
+  <!-- required for the date and time pickers -->
+  <link href="css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css">
 
-    // Experiment Instructions
-    var welcome_message = "<div id='instructions'><p>Welcome to the " +
-	"experiment. Press enter to begin.</p></div>";
+  <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.min.css' />
+  <!-- media="print" is required to display the fullcalendar header buttons -->
+  <link rel='stylesheet' media='print' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.print.css' />
 
-    var instructions = "<div id='instructions'><p>Now you will begin " +
-    	"the actual program.</p><p>Press enter to start.</p>";
+  <link rel="stylesheet" href="css/style.css">
 
-    var instructions_EX = "<div id='instructions'><p>You will see a " +
-	"series of images that look similar to this:</p><p>" +
-	"<img src='images/1.png'></p><p>Press the arrow " +
-	"key that corresponds to which hand the little man is holding " +
-	"his briefcase in. For example, in this case you would press " +
-	"the left arrow key.</p><p>The first four images are practice " + 
-	"Press enter to start.</p>";
+</head>
 
-    var debrief = "<div id='instructions'><p>Thank you for " +
-	  "participating! Press enter to see the data.</p></div>";
+<body>
 
-    // Generating Order for 4 Stimuli examples
-    // Examples (EX) are not randomized
-    var stimuli_order_EX = [];
-    var opt_data_EX = [];
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Little Man Task</a>
+    </div>
 
-    for (var i = 0; i < n_trials_EX; i++) {
-	  stimuli_order_EX.push(stimuli_EX[i]);
-	  opt_data_EX.push({
-		  "stimulus_type": stimuli_types_EX[i]
-	  });
-    }
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/index.php" title="Back to report page">Report</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" class="connection-status" id="connection-status">Connection Status</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span id="session-active">User</span> <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#" id="user_name"></a></li>
+            <li><a href="#" class="subject-id"></a></li>
+            <li><a href="#" class="session-id"></a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#" onclick="closeSession();">Close Session</a></li>
+            <li><a href="#" onclick="logout();">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 
-    // Generating Random Order for Stimuli (full test)
-    var stimuli_random_order = [];
-    var opt_data = [];
+  <!-- start session button -->
+  <section id="admin-top" class="bg-light-gray">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <center>
+            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#defineSession" title="Start a new assessment session">New Session</button>
+          </center>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    for (var i = 0; i < n_trials; i++) {
-	  var random_choice = Math.floor(Math.random() * stimuli.length);
+  <section class="bg-light-gray">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <center>
+            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveSession" id="open-save-session">Save Session</button>
+          </center>
+        </div>
+      </div>
+    </div>
+  </section>
 
-	  stimuli_random_order.push(stimuli[random_choice]);
-	  opt_data.push({
-		  "stimulus_type": stimuli_types[random_choice]
-	  });
-    }
+  <div class="portfolio-modal modal fade" id="saveSession" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+      <div class="close-modal" data-dismiss="modal">
+        <div class="lr">
+          <button class="close">x</button>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="modal-body">
+              <h3>Finish and upload the current session?</h3>
+              <form name="sentMessage" id="sessionInfoForm" novalidate>
+                <div class="col-md-6">
 
-    // Define experiment blocks
-    var instruction_block = {
-	  type: "text",
-	  text: [welcome_message, instructions_EX],
-	  timing_post_trial: 2500,
-	  //adding ignore label for welcome and instruction messages
-	  on_finish: function(data){
-	   	 jsPsych.data.addDataToLastTrial({ignore: true});
-	  },
-    };
+                  <div class="form-group">
+                    <label for="session-participant" class="control-label">Confirm Participant ID</label>
+                    <input type="text" class="form-control" placeholder="NDAR-#####" id="session-participant-again" required data-validation-required-message="Please enter the participant NDAR ID.">
+                    <p class="help-block text-danger"></p>
+                  </div>
 
-    var EX_block = {
-	  type: "single-stim",
-	  stimuli: stimuli_order_EX,
-	  choices: [37, 39],
-	  data: opt_data_EX,
-	  //added a function to record correct or not
-	  on_finish: function(data){
-	    	var correct = false;
-	   	if(data.stimulus_type == 'left' && data.key_press == 37){
-	      		correct = true;
-	   	} else if(data.stimulus_type == 'right' && data.key_press == 39){
-	      		correct = true;
-	  	}
-	   	 	jsPsych.data.addDataToLastTrial({correct: correct});
-	  },
-          
-    };
+                  <button id="save-session-button" type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-save"></i> Save Session</button> &nbsp;
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Back</button>&nbsp;
+                </div>
+              </form>
+            </div><!-- /.modal-body -->
+          </div><!-- /.col-lg-12 -->
+        </div><!-- /.row -->
+      </div><!-- /.container -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.portfolio-modal -->
+  
+  <!-- define session -->
+  <div class="portfolio-modal modal fade" id="defineSession" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+      <div class="close-modal" data-dismiss="modal">
+        <div class="lr">
+          <button class="close">x</button>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="modal-body">
+              <h3>Assessment Setup</h3>
+              <form name="sentMessage" id="sessionInfoForm" novalidate>
+                <div class="col-md-6">
 
-    var second_instruction_block = { 
-	  type: "text",
-	  text: [instructions],
-	  timing_post_trial: 2500,
-	  //adding ignore label for welcome and instruction messages
-	  on_finish: function(data){
-	   	 jsPsych.data.addDataToLastTrial({ignore: true});
-	  },
-    };
+                  <div class="form-group">
+                    <label for="session-participant" class="control-label">Participant</label>
+                    <input type="text" class="form-control" placeholder="NDAR-#####" id="session-participant" required data-validation-required-message="Please enter the participant NDAR ID.">
+                    <p class="help-block text-danger"></p>
+                  </div>
 
-    var test_block = {
- 	  type: "single-stim",
-	  stimuli: stimuli_random_order,
-	  choices: [37, 39],
-	  data: opt_data,
+                  <div class="form-group">
+                    <label for="session-name" class="control-label">Session name</label>
+                    <input type="text" class="form-control" placeholder="Baseline-01" id="session-name" required data-validation-required-message="Please enter the session ID.">
+                    <p class="help-block text-danger"></p>
+                  </div>
 
-	  //added a function to record correct or not
-	  on_finish: function(data){
-	    	var correct = false;
-	   	if(data.stimulus_type == 'left' && data.key_press == 37){
-	      		correct = true;
-	   	} else if(data.stimulus_type == 'right' && data.key_press == 39){
-	      		correct = true;
-	  	}
-	   	 	jsPsych.data.addDataToLastTrial({correct: correct});
-	  	},
-    };
+                  <div class="form-group">
+                    <label for="session-date" class="control-label">Session Date</label>
+                    <div class='input-group date' id='session-date-picker'>
+                      <input type='text' data-format="MM/dd/yyyy HH:mm:ss PP" id="session-date" class="form-control" placeholder="(TODO: Fill in with the current date)" />
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                    </div>
+                  </div>
 
-    var debrief_block = {
-	  type: "text",
-	  text: [debrief],
-	  //adding ignore label for welcome and instruction messages
-	  on_finish: function(data){
-	   	 jsPsych.data.addDataToLastTrial({ignore: true});
-	  },
-    };
+                  <div class="clearfix"></div>
+                </div>
+              </form>
+	    </div>
+          </div>
+	</div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="modal-body">
+              <div>
+                <button id="open-calendar-button" type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-save"></i> Start Little-Man-Task</button> &nbsp;
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Back</button>&nbsp;
+              </div>
+            </div><!-- /.modal-body -->
+          </div><!-- /.col-lg-12 -->
+        </div><!-- /.row -->
+      </div><!-- /.container -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.portfolio-modal -->
 
-    jsPsych.init({
-	  display_element: $('#jspsych_target'),
-	  //order of experiment includes an example section
-	  timeline: [instruction_block, EX_block, 
-	  	     second_instruction_block,
-	  	     test_block, debrief_block],
+  <!-- add event -->
+  <div class="portfolio-modal modal fade" id="addEvent" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+      <div class="close-modal" data-dismiss="modal">
+        <div class="lr">
+          <div class="rl">
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+            <div class="modal-body">
+              <!-- Details Go Here -->
+              <h2>Event Details</h2>
+              <!-- <p class="item-intro text-muted" id="add-event-message">Edit the event.</p> -->
+              <form role="form" class="form-horizontal">
 
-	  on_finish: function(data) {
-	      	//call from tutorial displays JSON string as final page
-   		jsPsych.data.displayData();
-	  }
-    });
-</script>
+                <!-- hidden field to remember the orginal event -->
+                <input type="hidden" id="add-event-origevent"/>
+
+                <!-- substance -->
+                <div class="form-group has-feedback">
+                  <label class="control-label col-sm-3" for="add-event-substance" title="Substance type">Substance</label>
+                  <div class="col-sm-9">
+                    <div class="input-group">
+                      <div class="btn-group btn-group-lg" data-toggle="buttons" id="select-substance-radio-group"></div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <!-- amount -->
+                <div class="form-group has-feedback">
+                  <label class="control-label col-sm-3" for="add-event-amount">Amount</label>
+                  <div class="col-sm-9">
+                    <div class="input-group">
+                      <input type="text" class="form-control" aria-label="..." id="add-event-amount">
+                      <div class="input-group-addon">grams</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- start date picker -->
+                <div class="form-group has-feedback">
+                  <label class="control-label col-sm-3" for="add-event-start-time">Start Time</label>
+                  <div class="col-sm-9">
+                    <div class='input-group date' id='add-event-start-date-picker'>
+                      <input type='text' data-format="MM/dd/yyyy HH:mm:ss PP" id="add-event-start-time" class="form-control" />
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- end date picker -->
+                <div class="form-group has-feedback" id="display-end-time">
+                  <label class="control-label col-sm-3" for="add-event-end-time">End Time</label>
+                  <div class="col-sm-9">
+                    <div class='input-group date' id='add-event-end-date-picker'>
+                      <input type='text' data-format="MM/dd/yyyy HH:mm:ss PP" id="add-event-end-time" class="form-control" />
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- checkbox to enable selecting the days of the week -->
+                <div class="form-group has-feedback">
+                  <label class="control-label col-sm-3" for="add-event-recurring"></label>
+                  <div class="col-sm-9">
+                    <div class="checkbox">
+                      <label for="add-event-recurring">
+                        <input type="checkbox" id="add-event-recurring" value="">Event recurring
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- days of the week -->
+                <div class="form-group" id="recurring-details" style="display: none;">
+                  <label class="control-label col-sm-3" for="add-event-days-of-week">Days</label>
+                  <div class="col-sm-9">
+                  <div class="btn-group" data-toggle="buttons" id="add-event-days-of-week">
+                    <label class="btn btn-default">
+                      <input type="checkbox" name="options" dayOfWeek="0"> Sun
+                    </label>
+                    <label class="btn btn-default">
+                      <input type="checkbox" name="options" dayOfWeek="1"> Mon
+                    </label>
+                    <label class="btn btn-default">
+                      <input type="checkbox" name="options" dayOfWeek="2"> Tue
+                    </label>
+                    <label class="btn btn-default">
+                      <input type="checkbox" name="options" dayOfWeek="3"> Wed
+                    </label>
+                    <label class="btn btn-default">
+                      <input type="checkbox" name="options" dayOfWeek="4"> Thu
+                    </label>
+                    <label class="btn btn-default">
+                      <input type="checkbox" name="options" dayOfWeek="5"> Fri
+                    </label>
+                    <label class="btn btn-default">
+                      <input type="checkbox" name="options" dayOfWeek="6"> Sat
+                    </label>
+                  </div>
+                  </div>
+                </div>
+
+                <!-- hidden checkbox for fullday event -->
+                <div class="form-group has-feedback">
+                  <div class="checkbox" style="display: none;">
+                    <label for="add-event-fullday">
+                      <input id="add-event-fullday" type="checkbox" value="">full day
+                    </label>
+                  </div>
+                </div>
+
+              </form>
+
+              <button id="save-event-button" style="margin-top: 50px;" type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-save"></i> Save</button>
+              <button style="margin-top: 50px;" type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+              <button id="delete-event-button" style="margin-top: 50px;" type="button" class="btn btn-warning pull-right" data-dismiss="modal"><i class="fa fa-close"></i> Delete Event</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src='js/moment.min.js'></script>
+
+  <!-- allow users to download tables as csv and excel -->
+<!--   <script src="js/excellentexport.min.js"></script> -->
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+
+  <script src="js/bootstrap-datetimepicker.js"></script>
+  <script src="js/bootstrap-datepicker.js"></script>
+<!--   <script src="js/bootstrap-colorselector.js"></script> -->
+
+  <!-- Plugin JavaScript -->
+<!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script> -->
+
+  <!-- Contact Form JavaScript -->
+<!--   <script src="js/jqBootstrapValidation.js"></script> -->
+<!--   <script src="js/contact_me.js"></script> -->
+
+  <!-- Custom Theme JavaScript -->
+<!--   <script src="js/agency.js"></script> -->
+<!--   <script src='js/fullcalendar.min.js'></script> -->
+
+<!--   <script src="js/d3.v3.min.js"></script> -->
+
+   <script type="text/javascript" src="js/all.js"></script>
+
+</body>
+
 </html>
-    

@@ -42,7 +42,7 @@
   <script>
 
     // Experiment parameters (instruction slide gives 32 as n_trials)
-    var n_trials = 32;
+    var n_trials = 1;
 
     var post_trial_gap = function() {
         return Math.floor( Math.random() * 1500 ) + 750;
@@ -114,15 +114,16 @@
      var EX_1_C = {
 	//attempting a multiple if system
 	type: 'single-stim',
-	timeline: [{ stimulus: 'images/EX 1 C.png'}],
+	timeline: [{ stimulus: 'images/EX 1 C.png', 
+		     on_finish: function(data)
+		     	{jsPsych.data.addDataToLastTrial({skipped:true});}
+		  }],
 
 	conditional_function: function(){
 		var data = jsPsych.data.getLastTrialData();
 			if(data.correct == false){
 				return false;
 			} else {
-				//some code to skip W slide
-
 				return true;
 			}
 	}
@@ -135,7 +136,7 @@
 
 	conditional_function: function(){
 		var data = jsPsych.data.getLastTrialData();
-			if(data.correct == true){
+			if(data.skipped == true){
 				return false;
 			} else {
 				return true;

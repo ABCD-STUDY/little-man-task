@@ -13,6 +13,7 @@
     echo('<script type="text/javascript"> user_name = "'.$user_name.'"; </script>'."\n");
     echo('<script type="text/javascript"> admin = '.($admin?"true":"false").'; </script>'."\n");
   }
+
 ?>
 
 <!doctype html>
@@ -23,24 +24,26 @@
     <!-- Load jQuery -->
     <script src="js/jquery.min.js"></script>
     <!-- Load the jspsych library and plugins -->
-    <script src="js/jspsych/jspsych.js"></script>
-    <script src="js/jspsych/plugins/jspsych-text.js"></script>
-    <script src="js/jspsych/plugins/jspsych-single-stim.js"></script>
+    <script src="js/jspsych-5.0.3/jspsych.js"></script>
+    <script src="js/jspsych-5.0.3/plugins/jspsych-text.js"></script>
+    <script src="js/jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
     <!-- Load the stylesheet -->
     <!-- <link href="experiment.css" type="text/css" rel="stylesheet"></link> -->
-    <link href="js/jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    <link href="js/jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 
   </head>
 
   <body>
+    <!-- added a background color to match the images seamlessly -->
+    <body style="background-color: #555555 ;">
     <div id="jspsych_target"></div>
   </body>
 
   <script>
-    // Experiment parameters
-    var n_trials_EX = 4;
-    var n_trials = 32;
+    // Experiment parameters (instruction slide gives 32 as n_trials)
+    var n_trials = 6;
 
+    //arrays of all available images and L/R value are manually paired by index for later use
     var stimuli=["images/1.png", "images/2.png", "images/3.png", "images/4.png", 
     		"images/5.png", "images/6.png", "images/7.png", "images/8.png", 
 		"images/9.png", "images/10.png", "images/11.png", "images/12.png", 
@@ -66,15 +69,14 @@
     var stimuli_types_EX = ["left", "left", "right", "right"];
 
     // Experiment Instructions
-    var welcome_message = "<div id='instructions'><p>Welcome to the " +
-	"experiment. Press enter to begin.</p></div>";
+    var welcome_message = "<images src='images/Instructions.png'>";
 
     var instructions = "<div id='instructions'><p>Now you will begin " +
     	"the actual program.</p><p>Press enter to start.</p>";
 
     var instructions_EX = "<div id='instructions'><p>You will see a " +
 	"series of images that look similar to this:</p><p>" +
-	"<img src='images/1.png'></p><p>Press the arrow " +
+	"<images src='images/1.png'></p><p>Press the arrow " +
 	"key that corresponds to which hand the little man is holding " +
 	"his briefcase in. For example, in this case you would press " +
 	"the left arrow key.</p><p>The first four images are practice " + 
@@ -83,86 +85,82 @@
     var debrief = "<div id='instructions'><p>Thank you for " +
 	  "participating! Press enter to see the data.</p></div>";
 
-    // Generating Order for 4 Stimuli examples
-    // Examples (EX) are not randomized
-    var stimuli_order_EX = [];
-    var opt_data_EX = [];
+    var EX_1 = {
+	type: 'single-stim',
+	choices: [37, 39],
+	timing_post_trial: 2500,
+	data: {stimulus_type: 'left'},
+	stimulus: 'images/EX 1.png',
+	on_finish: function(data){
+		//label data as example
+		jsPsych.data.addDataToLastTrial({ignore: true});
+		//labal data as correct or not.
+	    	var correct = false;
 
-    for (var i = 0; i < n_trials_EX; i++) {
-	  stimuli_order_EX.push(stimuli_EX[i]);
-	  opt_data_EX.push({
-		  "stimulus_type": stimuli_types_EX[i]
-	  });
+	   	if(data.stimulus_type == 'left' && data.key_press == 37){
+	      		correct = true;
+	   	} else if(data.stimulus_type == 'right' && data.key_press == 39){
+	      		correct = true;
+	  	}
+	   	jsPsych.data.addDataToLastTrial({correct: correct});
+	},
+	//this is the broken section
+	timeline: [{ timeline: [ {stimulus: 'images/EX 1 C.png', on_finish: function(){ jsPsych.endCurrentTimeline(); }},
+				 {stimulus: 'images/EX 1 W.png'}  
+			       ],
+
+		    conditional_function: function(){
+			var data = jsPsych.data.getLastTrialData();
+			if(data.correct == true){
+				return false;
+			} else {
+				return true;
+			}
+		    }
+		    }
+        ]
+
     }
 
-    // Generating Random Order for Stimuli (full test)
-    var stimuli_random_order = [];
-    var opt_data = [];
+    //generating an array of non-random images
+    i = 0;
+    var test_trials= []; 
+    for (var i = 0; i < 32 ; i++) { //32 is number of images in the folder
+	test_trials.push({stimulus: stimuli[i],data: {stimulus_type: stimuli_types[i]}});
+	
+    }
+    // using jspsych to randomize given images into array of size n_trials defined at top of file
+    var test_trial_array = jsPsych.randomization.sample(test_trials, n_trials, false);
 
-    for (var i = 0; i < n_trials; i++) {
-	  var random_choice = Math.floor(Math.random() * stimuli.length);
 
-	  stimuli_random_order.push(stimuli[random_choice]);
-	  opt_data.push({
-		  "stimulus_type": stimuli_types[random_choice]
-	  });
+    //main test trials are defined by this trial object. 
+    var test_block_main = {
+	type: 'single-stim',
+	choices: [37, 39],
+	timing_post_trial: 2500,
+	timeline: test_trial_array,
+    	//added a function to record correct or not
+        on_finish: function(data){
+		//labal data as correct or not.
+	    	var correct = false;
+	   	if(data.stimulus_type == 'left' && data.key_press == 37){
+	      		correct = true;
+	   	} else if(data.stimulus_type == 'right' && data.key_press == 39){
+	      		correct = true;
+	  	}
+	   	jsPsych.data.addDataToLastTrial({correct: correct});
+	}
     }
 
-    // Define experiment blocks
+    // Define first instruction block which uses instruction image
     var instruction_block = {
-	  type: "text",
-	  text: [welcome_message, instructions_EX],
+	  type: 'single-stim',
+	  stimulus: 'images/Instructions.png',
 	  timing_post_trial: 2500,
 	  //adding ignore label for welcome and instruction messages
 	  on_finish: function(data){
 	   	 jsPsych.data.addDataToLastTrial({ignore: true});
 	  },
-    };
-
-    var EX_block = {
-	  type: "single-stim",
-	  stimuli: stimuli_order_EX,
-	  choices: [37, 39],
-	  data: opt_data_EX,
-	  //added a function to record correct or not
-	  on_finish: function(data){
-	    	var correct = false;
-	   	if(data.stimulus_type == 'left' && data.key_press == 37){
-	      		correct = true;
-	   	} else if(data.stimulus_type == 'right' && data.key_press == 39){
-	      		correct = true;
-	  	}
-	   	 	jsPsych.data.addDataToLastTrial({correct: correct});
-	  },
-          
-    };
-
-    var second_instruction_block = { 
-	  type: "text",
-	  text: [instructions],
-	  timing_post_trial: 2500,
-	  //adding ignore label for welcome and instruction messages
-	  on_finish: function(data){
-	   	 jsPsych.data.addDataToLastTrial({ignore: true});
-	  },
-    };
-
-    var test_block = {
- 	  type: "single-stim",
-	  stimuli: stimuli_random_order,
-	  choices: [37, 39],
-	  data: opt_data,
-
-	  //added a function to record correct or not
-	  on_finish: function(data){
-	    	var correct = false;
-	   	if(data.stimulus_type == 'left' && data.key_press == 37){
-	      		correct = true;
-	   	} else if(data.stimulus_type == 'right' && data.key_press == 39){
-	      		correct = true;
-	  	}
-	   	 	jsPsych.data.addDataToLastTrial({correct: correct});
-	  	},
     };
 
     var debrief_block = {
@@ -177,23 +175,13 @@
     jsPsych.init({
 	  display_element: $('#jspsych_target'),
 	  //order of experiment includes an example section
-	  timeline: [instruction_block, EX_block, 
-	  	     second_instruction_block,
-	  	     test_block, debrief_block],
+	  timeline: [instruction_block, EX_1, 
+	  			 instruction_block,
+	  			 test_block_main, debrief_block],
 
 	  on_finish: function(data) {
-	      // save data on server
-              jQuery.getJSON('code/php/events.php?action=mark&status=closed&user_name='+user_name, function(data) {
-		  console.log(data);
-	      });
-			
-              jQuery.post('code/php/events.php?action=save', { "data": JSON.stringify(jsPsych.data.getData()) }, function(data) {
-		  console.log(data);
-	      });
-	      
-	      
-	      //call from tutorial displays JSON string as final page
-   	      jsPsych.data.displayData();
+	      	//call from tutorial displays JSON string as final page
+   		jsPsych.data.displayData();
 	  }
     });
 </script>

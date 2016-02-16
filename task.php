@@ -40,8 +40,13 @@
   </body>
 
   <script>
+
     // Experiment parameters (instruction slide gives 32 as n_trials)
-    var n_trials = 6;
+    var n_trials = 32;
+
+    var post_trial_gap = function() {
+        return Math.floor( Math.random() * 1500 ) + 750;
+    }
 
     //arrays of all available images and L/R value are manually paired by index for later use
     var stimuli=["images/1.png", "images/2.png", "images/3.png", "images/4.png", 
@@ -88,7 +93,7 @@
     var EX_1 = {
 	type: 'single-stim',
 	choices: [37, 39],
-	timing_post_trial: 2500,
+	timing_post_trial: post_trial_gap,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 1.png',
 	on_finish: function(data){
@@ -154,7 +159,7 @@
     var test_block_main = {
 	type: 'single-stim',
 	choices: [37, 39],
-	timing_post_trial: 2500,
+	timing_post_trial: post_trial_gap,
 	timeline: test_trial_array,
     	//added a function to record correct or not
         on_finish: function(data){

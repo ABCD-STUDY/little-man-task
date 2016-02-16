@@ -103,22 +103,39 @@
 	      		correct = true;
 	  	}
 	   	jsPsych.data.addDataToLastTrial({correct: correct});
-	},
-	//this is the broken section
-	timeline: [{ timeline: [ {stimulus: 'images/EX 1 C.png', on_finish: function(){ jsPsych.endCurrentTimeline(); }},
-				 {stimulus: 'images/EX 1 W.png'}  
-			       ],
+	}
 
-		    conditional_function: function(){
-			var data = jsPsych.data.getLastTrialData();
+     }
+     var EX_1_C = {
+	//attempting a multiple if system
+	type: 'single-stim',
+	timeline: [{ stimulus: 'images/EX 1 C.png'}],
+
+	conditional_function: function(){
+		var data = jsPsych.data.getLastTrialData();
+			if(data.correct == false){
+				return false;
+			} else {
+				//some code to skip W slide
+
+				return true;
+			}
+	}
+    }
+        
+    var EX_1_W = {
+	//second if should only trigger if previous did not
+	type: 'single-stim',
+	timeline: [{ stimulus: 'images/EX 1 W.png'}],
+
+	conditional_function: function(){
+		var data = jsPsych.data.getLastTrialData();
 			if(data.correct == true){
 				return false;
 			} else {
 				return true;
 			}
-		    }
-		    }
-        ]
+	}
 
     }
 
@@ -175,7 +192,7 @@
     jsPsych.init({
 	  display_element: $('#jspsych_target'),
 	  //order of experiment includes an example section
-	  timeline: [instruction_block, EX_1, 
+	  timeline: [instruction_block, EX_1, EX_1_C, EX_1_W, 
 	  			 instruction_block,
 	  			 test_block_main, debrief_block],
 

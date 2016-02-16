@@ -144,6 +144,168 @@
 	}
 
     }
+    var EX_2 = {
+	type: 'single-stim',
+	choices: [37, 39],
+	timing_post_trial: post_trial_gap,
+	data: {stimulus_type: 'left'},
+	stimulus: 'images/EX 2.png',
+	on_finish: function(data){
+		//label data as example
+		jsPsych.data.addDataToLastTrial({ignore: true});
+		//labal data as correct or not.
+	    	var correct = false;
+
+	   	if(data.stimulus_type == 'left' && data.key_press == 37){
+	      		correct = true;
+	   	} else if(data.stimulus_type == 'right' && data.key_press == 39){
+	      		correct = true;
+	  	}
+	   	jsPsych.data.addDataToLastTrial({correct: correct});
+	}
+
+     }
+     var EX_2_C = {
+	//attempting a multiple if system
+	type: 'single-stim',
+	timeline: [{ stimulus: 'images/EX 2 C.png', 
+		     on_finish: function(data)
+		     	{jsPsych.data.addDataToLastTrial({skipped:true});}
+		  }],
+
+	conditional_function: function(){
+		var data = jsPsych.data.getLastTrialData();
+			if(data.correct == false){
+				return false;
+			} else {
+				return true;
+			}
+	}
+    }
+        
+    var EX_2_W = {
+	//second if should only trigger if previous did not
+	type: 'single-stim',
+	timeline: [{ stimulus: 'images/EX 2 W.png'}],
+
+	conditional_function: function(){
+		var data = jsPsych.data.getLastTrialData();
+			if(data.skipped == true){
+				return false;
+			} else {
+				return true;
+			}
+	}
+
+    }
+    var EX_3 = {
+	type: 'single-stim',
+	choices: [37, 39],
+	timing_post_trial: post_trial_gap,
+	data: {stimulus_type: 'right'},
+	stimulus: 'images/EX 3.png',
+	on_finish: function(data){
+		//label data as example
+		jsPsych.data.addDataToLastTrial({ignore: true});
+		//labal data as correct or not.
+	    	var correct = false;
+
+	   	if(data.stimulus_type == 'left' && data.key_press == 37){
+	      		correct = true;
+	   	} else if(data.stimulus_type == 'right' && data.key_press == 39){
+	      		correct = true;
+	  	}
+	   	jsPsych.data.addDataToLastTrial({correct: correct});
+	}
+
+     }
+     var EX_3_C = {
+	//attempting a multiple if system
+	type: 'single-stim',
+	timeline: [{ stimulus: 'images/EX 3 C.png', 
+		     on_finish: function(data)
+		     	{jsPsych.data.addDataToLastTrial({skipped:true});}
+		  }],
+
+	conditional_function: function(){
+		var data = jsPsych.data.getLastTrialData();
+			if(data.correct == false){
+				return false;
+			} else {
+				return true;
+			}
+	}
+    }
+        
+    var EX_3_W = {
+	//second if should only trigger if previous did not
+	type: 'single-stim',
+	timeline: [{ stimulus: 'images/EX 3 W.png'}],
+
+	conditional_function: function(){
+		var data = jsPsych.data.getLastTrialData();
+			if(data.skipped == true){
+				return false;
+			} else {
+				return true;
+			}
+	}
+
+    }
+    var EX_4 = {
+	type: 'single-stim',
+	choices: [37, 39],
+	timing_post_trial: post_trial_gap,
+	data: {stimulus_type: 'right'},
+	stimulus: 'images/EX 4.png',
+	on_finish: function(data){
+		//label data as example
+		jsPsych.data.addDataToLastTrial({ignore: true});
+		//labal data as correct or not.
+	    	var correct = false;
+
+	   	if(data.stimulus_type == 'left' && data.key_press == 37){
+	      		correct = true;
+	   	} else if(data.stimulus_type == 'right' && data.key_press == 39){
+	      		correct = true;
+	  	}
+	   	jsPsych.data.addDataToLastTrial({correct: correct});
+	}
+
+     }
+     var EX_4_C = {
+	//attempting a multiple if system
+	type: 'single-stim',
+	timeline: [{ stimulus: 'images/EX 4 C.png', 
+		     on_finish: function(data)
+		     	{jsPsych.data.addDataToLastTrial({skipped:true});}
+		  }],
+
+	conditional_function: function(){
+		var data = jsPsych.data.getLastTrialData();
+			if(data.correct == false){
+				return false;
+			} else {
+				return true;
+			}
+	}
+    }
+        
+    var EX_4_W = {
+	//second if should only trigger if previous did not
+	type: 'single-stim',
+	timeline: [{ stimulus: 'images/EX 4 W.png'}],
+
+	conditional_function: function(){
+		var data = jsPsych.data.getLastTrialData();
+			if(data.skipped == true){
+				return false;
+			} else {
+				return true;
+			}
+	}
+
+    }
 
     //generating an array of non-random images
     i = 0;
@@ -198,7 +360,11 @@
     jsPsych.init({
 	  display_element: $('#jspsych_target'),
 	  //order of experiment includes an example section
-	  timeline: [instruction_block, EX_1, EX_1_C, EX_1_W, 
+	  timeline: [instruction_block,
+	  			 EX_1, EX_1_C, EX_1_W, 
+	  			 EX_2, EX_2_C, EX_2_W, 
+	  			 EX_3, EX_3_C, EX_3_W, 
+	  			 EX_4, EX_4_C, EX_4_W, 
 	  			 instruction_block,
 	  			 test_block_main, debrief_block],
 

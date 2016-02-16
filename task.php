@@ -42,7 +42,7 @@
   <script>
 
     // Experiment parameters (instruction slide gives 32 as n_trials)
-    var n_trials = 1;
+    var n_trials = 32;
 
     var post_trial_gap = function() {
         return Math.floor( Math.random() * 1500 ) + 750;

@@ -337,8 +337,8 @@
 	}
     }
 
-    // Define first instruction block which uses instruction image
-    var instruction_block = {
+    // Define second instruction block which uses instruction image
+    var second_instruction_block = {
 	  type: 'single-stim',
 	  stimulus: 'images/Instructions.png',
 	  timing_post_trial: 2500,
@@ -347,7 +347,16 @@
 	   	 jsPsych.data.addDataToLastTrial({ignore: true});
 	  },
     };
-
+    // Define first instruction block which uses instruction image
+    var first_instruction_block = {
+	  type: 'single-stim',
+	  stimulus: 'images/instruction_example.png',
+	  timing_post_trial: 2500,
+	  //adding ignore label for welcome and instruction messages
+	  on_finish: function(data){
+	   	 jsPsych.data.addDataToLastTrial({ignore: true});
+	  },
+    };
     var debrief_block = {
 	  type: "text",
 	  text: [debrief],
@@ -360,12 +369,12 @@
     jsPsych.init({
 	  display_element: $('#jspsych_target'),
 	  //order of experiment includes an example section
-	  timeline: [instruction_block,
+	  timeline: [first_instruction_block,
 	  			 EX_1, EX_1_C, EX_1_W, 
 	  			 EX_2, EX_2_C, EX_2_W, 
 	  			 EX_3, EX_3_C, EX_3_W, 
 	  			 EX_4, EX_4_C, EX_4_W, 
-	  			 instruction_block,
+	  			 second_instruction_block,
 	  			 test_block_main, debrief_block],
 
 	  on_finish: function(data) {

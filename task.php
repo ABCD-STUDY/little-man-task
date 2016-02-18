@@ -14,6 +14,11 @@
     echo('<script type="text/javascript"> admin = '.($admin?"true":"false").'; </script>'."\n");
   }
 
+   $subjid  = $_SESSION['subjid'];
+   $session = $_SESSION['sessionid'];
+   echo('<script type="text/javascript"> SubjectID = "'.$subjid.'"; </script>'."\n");
+   echo('<script type="text/javascript"> Session = "'.$session.'"; </script>'."\n");
+
 ?>
 
 <!doctype html>
@@ -24,12 +29,13 @@
     <!-- Load jQuery -->
     <script src="js/jquery.min.js"></script>
     <!-- Load the jspsych library and plugins -->
-    <script src="js/jspsych-5.0.3/jspsych.js"></script>
-    <script src="js/jspsych-5.0.3/plugins/jspsych-text.js"></script>
-    <script src="js/jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
+    <script src="js/jspsych/jspsych.js"></script>
+    <script src="js/jspsych/plugins/jspsych-text.js"></script>
+    <script src="js/jspsych/plugins/jspsych-single-stim.js"></script>
+    <script src="js/moment.min.js"></script>
     <!-- Load the stylesheet -->
     <!-- <link href="experiment.css" type="text/css" rel="stylesheet"></link> -->
-    <link href="js/jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    <link href="js/jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 
   </head>
 
@@ -41,8 +47,46 @@
 
   <script>
 
+function exportToCsv(filename, rows) {
+    var k = { "SubjectID": 1, "Site": 1, "Session": 1 };
+    for (var i = 0; i < rows.length; i++) {
+       var k2 = Object.keys(rows[i]);
+       for (var j = 0; j < k2.length; j++) {
+          k[k2[j]] = 1;
+       } 
+    }
+    k = Object.keys(k);
+
+    var csvFile = k.join(",") + "\n";
+    for (var i = 0; i < rows.length; i++) {
+       rows['SubjectID'] = SubjectID;
+       rows['Site'] = Site;
+       rows['Session'] = Session;
+       csvFile += k.map(function(a) { return rows[i][a] }).join(",") + "\n";
+    }
+    
+    var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+    if (navigator.msSaveBlob) { // IE 10+
+	navigator.msSaveBlob(blob, filename);
+    } else {
+	var link = document.createElement("a");
+	if (link.download !== undefined) { // feature detection
+	    // Browsers that support HTML5 download attribute
+	    var url = URL.createObjectURL(blob);
+	    link.setAttribute("href", url);
+	    link.setAttribute("download", filename);
+	    link.style.visibility = 'hidden';
+	    document.body.appendChild(link);
+	    link.click();
+	    document.body.removeChild(link);
+	}
+    }
+}
+
+
+
     // Experiment parameters (instruction slide gives 32 as n_trials)
-    var n_trials = 32;
+    var n_trials = 6;
 
     var post_trial_gap = function() {
         return Math.floor( Math.random() * 1500 ) + 750;
@@ -93,7 +137,7 @@
     var EX_1 = {
 	type: 'single-stim',
 	choices: [37, 39],
-	timing_post_trial: post_trial_gap,
+	timing_post_trial: 20,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 1.png',
 	on_finish: function(data){
@@ -147,7 +191,7 @@
     var EX_2 = {
 	type: 'single-stim',
 	choices: [37, 39],
-	timing_post_trial: post_trial_gap,
+	timing_post_trial: 20,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 2.png',
 	on_finish: function(data){
@@ -201,7 +245,7 @@
     var EX_3 = {
 	type: 'single-stim',
 	choices: [37, 39],
-	timing_post_trial: post_trial_gap,
+	timing_post_trial: 20,
 	data: {stimulus_type: 'right'},
 	stimulus: 'images/EX 3.png',
 	on_finish: function(data){
@@ -255,7 +299,7 @@
     var EX_4 = {
 	type: 'single-stim',
 	choices: [37, 39],
-	timing_post_trial: post_trial_gap,
+	timing_post_trial: 20,
 	data: {stimulus_type: 'right'},
 	stimulus: 'images/EX 4.png',
 	on_finish: function(data){
@@ -310,7 +354,7 @@
     //generating an array of non-random images
     i = 0;
     var test_trials= []; 
-    for (var i = 0; i < 32 ; i++) { //32 is number of images in the folder
+    for (var i = 0; i < n_trials; i++) { //32 is number of images in the folder
 	test_trials.push({stimulus: stimuli[i],data: {stimulus_type: stimuli_types[i]}});
 	
     }
@@ -341,7 +385,7 @@
     var second_instruction_block = {
 	  type: 'single-stim',
 	  stimulus: 'images/Instructions.png',
-	  timing_post_trial: 2500,
+	  timing_post_trial: 1000,
 	  //adding ignore label for welcome and instruction messages
 	  on_finish: function(data){
 	   	 jsPsych.data.addDataToLastTrial({ignore: true});
@@ -351,7 +395,7 @@
     var first_instruction_block = {
 	  type: 'single-stim',
 	  stimulus: 'images/instruction_example.png',
-	  timing_post_trial: 2500,
+	  timing_post_trial: 1000,
 	  //adding ignore label for welcome and instruction messages
 	  on_finish: function(data){
 	   	 jsPsych.data.addDataToLastTrial({ignore: true});
@@ -362,7 +406,7 @@
 	  text: [debrief],
 	  //adding ignore label for welcome and instruction messages
 	  on_finish: function(data){
-	   	 jsPsych.data.addDataToLastTrial({ignore: true});
+	   	jsPsych.data.addDataToLastTrial({ignore: true});
 	  },
     };
 
@@ -378,8 +422,19 @@
 	  			 test_block_main, debrief_block],
 
 	  on_finish: function(data) {
-	      	//call from tutorial displays JSON string as final page
-   		jsPsych.data.displayData();
+	      // call from tutorial displays JSON string as final page
+   	      // jsPsych.data.displayData();
+
+	      jQuery.post('code/php/events.php', { "data": JSON.stringify(jsPsych.data.getData()), "date": moment().format() }, function(data) {
+                  // did it work?
+                  console.log(data);
+                  // export now
+                  exportToCsv("Little-Man-Task.csv", jsPsych.data.getData());
+
+                  // we should remove this as an active session now... 
+	      });
+
+
 	  }
     });
 </script>

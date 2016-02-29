@@ -33,10 +33,19 @@
   }
 
   // if there is a running session it would have the follow information
-  $subjid  = $_SESSION['subjid'];
-  $session = $_SESSION['sessionid'];
+  $subjid = "";
+  $sessionid = "";
+  if( isset($_SESSION['ABCD']) && isset($_SESSION['ABCD']['little-man-task']) ) {
+     if (isset($_SESSION['ABCD']['little-man-task']['subjid'])) {
+        $subjid  = $_SESSION['ABCD']['little-man-task']['subjid'];
+     }
+     if (isset($_SESSION['ABCD']['little-man-task']['sessionid'])) {
+        $sessionid  = $_SESSION['ABCD']['little-man-task']['sessionid'];
+     }
+  }
+
   echo('<script type="text/javascript"> subjid = "'.$subjid.'"; </script>'."\n");
-  echo('<script type="text/javascript"> session = "'.$session.'"; </script>'."\n");
+  echo('<script type="text/javascript"> session = "'.$sessionid.'"; </script>'."\n");
   echo('<script type="text/javascript"> site = "'.$site.'"; </script>'."\n");
 ?>
 

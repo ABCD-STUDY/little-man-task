@@ -44,11 +44,10 @@ function storeSubjectAndName() {
 	jQuery('#open-save-session').fadeOut();
     }
     
-    //var active_substances = getActiveSubstances();
-    
     var data = {
 	"subjid": subject,
-	"session": session
+	"sessionid": session,
+	"task": "little-man-task"
     };
     
     jQuery.get('../../code/php/session.php', data, function() {

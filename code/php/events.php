@@ -29,30 +29,35 @@
   }
 
   // Both the subject id and the visit (session) are used to make the assessment unique
-  $subjid = "";
-  $session = "";
-  if (isset($_SESSION['subjid'])) {
-     $subjid = $_SESSION['subjid'];
-  } else {
+   $subjid = "";
+   $sessionid = "";
+   $active_substances = array();
+   if ( isset($_SESSION['ABCD']) && isset($_SESSION['ABCD']['timeline-followback']) ) {
+      if (isset($_SESSION['ABCD']['timeline-followback']['subjid'])) {  
+         $subjid  = $_SESSION['ABCD']['timeline-followback']['subjid'];
+      }
+      if (isset($_SESSION['ABCD']['timeline-followback']['sessionid'])) {
+         $sessionid  = $_SESSION['ABCD']['timeline-followback']['sessionid'];
+      }      
+   }
+   if ($subjid == "") {
      echo(json_encode ( array( "message" => "Error: no subject id assigned" ) ) );
      return;
-  }
-  if (isset($_SESSION['sessionid'])) {
-     $session = $_SESSION['sessionid'];
-  } else {
+   }
+   if ($sessionid == "") {
      echo(json_encode ( array( "message" => "Error: no session specified" ) ) );
      return;
-  }
+   }
 
   // this event will be saved at this location
-  $events_file = $_SERVER['DOCUMENT_ROOT']."/applications/little-man-task/data/" . $site . "/lmt_".$subjid."_".$session.".json";
+  $events_file = $_SERVER['DOCUMENT_ROOT']."/applications/little-man-task/data/" . $site . "/lmt_".$subjid."_".$sessionid.".json";
 
   if (file_exists($events_file)) {
      echo(json_encode ( array( "message" => "Error: this session already exists, overwrite session is not possible" ) ) );
      return;
   }
   
-  $ar = array( "data" => [], "serverDate" => date("Y/m/d"), "serverTime" => date("h:i:sa"), "site" => $site, "subjectid" => $subjid, "session" => $session );
+  $ar = array( "data" => [], "serverDate" => date("Y/m/d"), "serverTime" => date("h:i:sa"), "site" => $site, "subjectid" => $subjid, "session" => $sessionid );
   if (isset($_POST['data'])) {
      $ar['data'] = json_decode($_POST['data'], true);
   }

@@ -14,10 +14,35 @@
     echo('<script type="text/javascript"> admin = '.($admin?"true":"false").'; </script>'."\n");
   }
 
-   $subjid  = $_SESSION['subjid'];
-   $session = $_SESSION['sessionid'];
-   echo('<script type="text/javascript"> SubjectID = "'.$subjid.'"; </script>'."\n");
-   echo('<script type="text/javascript"> Session = "'.$session.'"; </script>'."\n");
+  $subjid = "";
+  $sessionid = "";
+  if( isset($_SESSION['ABCD']) && isset($_SESSION['ABCD']['little-man-task']) ) {
+     if (isset($_SESSION['ABCD']['little-man-task']['subjid'])) {
+        $subjid  = $_SESSION['ABCD']['little-man-task']['subjid'];
+     }
+     if (isset($_SESSION['ABCD']['little-man-task']['sessionid'])) {
+        $sessionid  = $_SESSION['ABCD']['little-man-task']['sessionid'];
+     }
+  }
+  echo('<script type="text/javascript"> SubjectID = "'.$subjid.'"; </script>'."\n");
+  echo('<script type="text/javascript"> Session = "'.$sessionid.'"; </script>'."\n");
+
+   $permissions = list_permissions_for_user( $user_name );
+
+   $site = "";
+   foreach ($permissions as $per) {
+     $a = explode("Site", $per); // permissions should be structured as "Site<site name>"
+
+     if (count($a) > 0) {
+        $site = $a[1];
+	break;
+     }
+   }
+   if ($site == "") {
+     echo (json_encode ( array( "message" => "Error: no site assigned to this user" ) ) );
+     return;
+   }
+   echo('<script type="text/javascript"> Site = "'.$site.'"; </script>'."\n");
 
 ?>
 
@@ -59,9 +84,9 @@ function exportToCsv(filename, rows) {
 
     var csvFile = k.join(",") + "\n";
     for (var i = 0; i < rows.length; i++) {
-       rows['SubjectID'] = SubjectID;
-       rows['Site'] = Site;
-       rows['Session'] = Session;
+       rows[i]['SubjectID'] = SubjectID;
+       rows[i]['Site'] = Site;
+       rows[i]['Session'] = Session;
        csvFile += k.map(function(a) { return rows[i][a] }).join(",") + "\n";
     }
     
@@ -428,8 +453,11 @@ function exportToCsv(filename, rows) {
 	      jQuery.post('code/php/events.php', { "data": JSON.stringify(jsPsych.data.getData()), "date": moment().format() }, function(data) {
                   // did it work?
                   console.log(data);
+		  if (data.ok == 0) {
+		     alert('Error: ' + data.message);
+		  }
                   // export now
-                  exportToCsv("Little-Man-Task.csv", jsPsych.data.getData());
+                  exportToCsv("Little-Man-Task_" + Site + "_" + SubjectID + "_" + Session + "_" + moment().format() + ".csv", jsPsych.data.getData());
 
                   // we should remove this as an active session now... 
 	      });

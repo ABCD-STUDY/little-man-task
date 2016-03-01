@@ -14,36 +14,6 @@
     echo('<script type="text/javascript"> admin = '.($admin?"true":"false").'; </script>'."\n");
   }
 
-  $subjid = "";
-  $sessionid = "";
-  if( isset($_SESSION['ABCD']) && isset($_SESSION['ABCD']['little-man-task']) ) {
-     if (isset($_SESSION['ABCD']['little-man-task']['subjid'])) {
-        $subjid  = $_SESSION['ABCD']['little-man-task']['subjid'];
-     }
-     if (isset($_SESSION['ABCD']['little-man-task']['sessionid'])) {
-        $sessionid  = $_SESSION['ABCD']['little-man-task']['sessionid'];
-     }
-  }
-  echo('<script type="text/javascript"> SubjectID = "'.$subjid.'"; </script>'."\n");
-  echo('<script type="text/javascript"> Session = "'.$sessionid.'"; </script>'."\n");
-
-   $permissions = list_permissions_for_user( $user_name );
-
-   $site = "";
-   foreach ($permissions as $per) {
-     $a = explode("Site", $per); // permissions should be structured as "Site<site name>"
-
-     if (count($a) > 0) {
-        $site = $a[1];
-	break;
-     }
-   }
-   if ($site == "") {
-     echo (json_encode ( array( "message" => "Error: no site assigned to this user" ) ) );
-     return;
-   }
-   echo('<script type="text/javascript"> Site = "'.$site.'"; </script>'."\n");
-
 ?>
 
 <!doctype html>
@@ -54,13 +24,12 @@
     <!-- Load jQuery -->
     <script src="js/jquery.min.js"></script>
     <!-- Load the jspsych library and plugins -->
-    <script src="js/jspsych/jspsych.js"></script>
-    <script src="js/jspsych/plugins/jspsych-text.js"></script>
-    <script src="js/jspsych/plugins/jspsych-single-stim.js"></script>
-    <script src="js/moment.min.js"></script>
+    <script src="js/jspsych-5.0.3/jspsych.js"></script>
+    <script src="js/jspsych-5.0.3/plugins/jspsych-text.js"></script>
+    <script src="js/jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
     <!-- Load the stylesheet -->
     <!-- <link href="experiment.css" type="text/css" rel="stylesheet"></link> -->
-    <link href="js/jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    <link href="js/jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 
   </head>
 
@@ -110,7 +79,7 @@ function exportToCsv(filename, rows) {
 
 
 
-     var post_trial_gap = function() {
+    var post_trial_gap = function() {
         return Math.floor( Math.random() * 1000 ) + 500;
     }
 
@@ -499,24 +468,9 @@ function exportToCsv(filename, rows) {
 	  			 second_instruction_block,
 	  			 test_block_main, debrief_block],
 	  
- 
 	  on_finish: function(data) {
-	      // call from tutorial displays JSON string as final page
-   	      // jsPsych.data.displayData();
-
-	      jQuery.post('code/php/events.php', { "data": JSON.stringify(jsPsych.data.getData()), "date": moment().format() }, function(data) {
-                  // did it work?
-                  console.log(data);
-		  if (data.ok == 0) {
-		     alert('Error: ' + data.message);
-		  }
-                  // export now
-                  exportToCsv("Little-Man-Task_" + Site + "_" + SubjectID + "_" + Session + "_" + moment().format() + ".csv", jsPsych.data.getData());
-
-                  // we should remove this as an active session now... 
-	      });
-
-
+	      	//call from tutorial displays JSON string as final page
+   		jsPsych.data.displayData();
 	  }
     });
 </script>

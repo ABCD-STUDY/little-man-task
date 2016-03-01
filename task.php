@@ -54,12 +54,13 @@
     <!-- Load jQuery -->
     <script src="js/jquery.min.js"></script>
     <!-- Load the jspsych library and plugins -->
-    <script src="js/jspsych-5.0.3/jspsych.js"></script>
-    <script src="js/jspsych-5.0.3/plugins/jspsych-text.js"></script>
-    <script src="js/jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
+    <script src="js/jspsych/jspsych.js"></script>
+    <script src="js/jspsych/plugins/jspsych-text.js"></script>
+    <script src="js/jspsych/plugins/jspsych-single-stim.js"></script>
+    <script src="js/moment.min.js"></script>
     <!-- Load the stylesheet -->
     <!-- <link href="experiment.css" type="text/css" rel="stylesheet"></link> -->
-    <link href="js/jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    <link href="js/jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 
   </head>
 

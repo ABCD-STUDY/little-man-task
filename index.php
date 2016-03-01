@@ -7,18 +7,46 @@
 
   if ($user_name == "") {
     // user is not logged in
-
+    return;
   } else {
     $admin = true;
     echo('<script type="text/javascript"> user_name = "'.$user_name.'"; </script>'."\n");
     echo('<script type="text/javascript"> admin = '.($admin?"true":"false").'; </script>'."\n");
   }
-   // if there is a running session it would have the follow information
-   $subjid  = $_SESSION['subjid'];
-   $session = $_SESSION['sessionid'];
-   $act_subst     = $_SESSION['act_subst'];
-   echo('<script type="text/javascript"> subjid = "'.$subjid.'"; </script>'."\n");
-   echo('<script type="text/javascript"> session = "'.$session.'"; </script>'."\n");
+  
+  $permissions = list_permissions_for_user( $user_name );
+
+  // find the first permission that corresponds to a site
+  // Assumption here is that a user can only add assessment for the first site he has permissions for!
+  $site = "";
+  foreach ($permissions as $per) {
+     $a = explode("Site", $per); // permissions should be structured as "Site<site name>"
+
+     if (count($a) > 0) {
+        $site = $a[1];
+	break;
+     }
+  }
+  if ($site == "") {
+     echo (json_encode ( array( "message" => "Error: no site assigned to this user" ) ) );
+     return;
+  }
+
+  // if there is a running session it would have the follow information
+  $subjid = "";
+  $sessionid = "";
+  if( isset($_SESSION['ABCD']) && isset($_SESSION['ABCD']['little-man-task']) ) {
+     if (isset($_SESSION['ABCD']['little-man-task']['subjid'])) {
+        $subjid  = $_SESSION['ABCD']['little-man-task']['subjid'];
+     }
+     if (isset($_SESSION['ABCD']['little-man-task']['sessionid'])) {
+        $sessionid  = $_SESSION['ABCD']['little-man-task']['sessionid'];
+     }
+  }
+
+  echo('<script type="text/javascript"> subjid = "'.$subjid.'"; </script>'."\n");
+  echo('<script type="text/javascript"> session = "'.$sessionid.'"; </script>'."\n");
+  echo('<script type="text/javascript"> site = "'.$site.'"; </script>'."\n");
 ?>
 
 <!DOCTYPE html>

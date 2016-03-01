@@ -110,11 +110,8 @@ function exportToCsv(filename, rows) {
 
 
 
-    // Experiment parameters (instruction slide gives 32 as n_trials)
-    var n_trials = 32;
-
-    var post_trial_gap = function() {
-        return Math.floor( Math.random() * 1500 ) + 750;
+     var post_trial_gap = function() {
+        return Math.floor( Math.random() * 1000 ) + 500;
     }
 
     //arrays of all available images and L/R value are manually paired by index for later use
@@ -162,12 +159,12 @@ function exportToCsv(filename, rows) {
     var EX_1 = {
 	type: 'single-stim',
 	choices: [37, 39],
-	timing_post_trial: 20,
+	//timing_post_trial: post_trial_gap,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 1.png',
 	on_finish: function(data){
 		//label data as example
-		jsPsych.data.addDataToLastTrial({ignore: true});
+		jsPsych.data.addDataToLastTrial({is_data_element: false});
 		//labal data as correct or not.
 	    	var correct = false;
 
@@ -184,8 +181,10 @@ function exportToCsv(filename, rows) {
 	//attempting a multiple if system
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 1 C.png', 
-		     on_finish: function(data)
-		     	{jsPsych.data.addDataToLastTrial({skipped:true});}
+		     timing_response: 3000,
+		     on_finish: function(data){
+			jsPsych.data.addDataToLastTrial({is_data_element: false});
+		     	jsPsych.data.addDataToLastTrial({skipped:true});}
 		  }],
 
 	conditional_function: function(){
@@ -201,7 +200,11 @@ function exportToCsv(filename, rows) {
     var EX_1_W = {
 	//second if should only trigger if previous did not
 	type: 'single-stim',
-	timeline: [{ stimulus: 'images/EX 1 W.png'}],
+	timeline: [{ stimulus: 'images/EX 1 W.png',
+		     timing_response: 3000,
+		     data: {is_data_element: false},
+		  }],
+
 
 	conditional_function: function(){
 		var data = jsPsych.data.getLastTrialData();
@@ -216,12 +219,12 @@ function exportToCsv(filename, rows) {
     var EX_2 = {
 	type: 'single-stim',
 	choices: [37, 39],
-	timing_post_trial: 20,
+	//timing_post_trial: post_trial_gap,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 2.png',
 	on_finish: function(data){
 		//label data as example
-		jsPsych.data.addDataToLastTrial({ignore: true});
+		jsPsych.data.addDataToLastTrial({is_data_element: false});
 		//labal data as correct or not.
 	    	var correct = false;
 
@@ -238,8 +241,10 @@ function exportToCsv(filename, rows) {
 	//attempting a multiple if system
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 2 C.png', 
-		     on_finish: function(data)
-		     	{jsPsych.data.addDataToLastTrial({skipped:true});}
+	             timing_response: 3000,
+		     on_finish: function(data){
+			jsPsych.data.addDataToLastTrial({is_data_element: false});
+		     	jsPsych.data.addDataToLastTrial({skipped:true});}
 		  }],
 
 	conditional_function: function(){
@@ -255,7 +260,11 @@ function exportToCsv(filename, rows) {
     var EX_2_W = {
 	//second if should only trigger if previous did not
 	type: 'single-stim',
-	timeline: [{ stimulus: 'images/EX 2 W.png'}],
+	timeline: [{ stimulus: 'images/EX 2 W.png',
+		     timing_response: 3000,
+		     data: {is_data_element: false},
+		  }],
+
 
 	conditional_function: function(){
 		var data = jsPsych.data.getLastTrialData();
@@ -270,12 +279,12 @@ function exportToCsv(filename, rows) {
     var EX_3 = {
 	type: 'single-stim',
 	choices: [37, 39],
-	timing_post_trial: 20,
+	//timing_post_trial: post_trial_gap,
 	data: {stimulus_type: 'right'},
 	stimulus: 'images/EX 3.png',
 	on_finish: function(data){
 		//label data as example
-		jsPsych.data.addDataToLastTrial({ignore: true});
+		jsPsych.data.addDataToLastTrial({is_data_element: false});
 		//labal data as correct or not.
 	    	var correct = false;
 
@@ -292,8 +301,10 @@ function exportToCsv(filename, rows) {
 	//attempting a multiple if system
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 3 C.png', 
-		     on_finish: function(data)
-		     	{jsPsych.data.addDataToLastTrial({skipped:true});}
+	             timing_response: 3000,
+		     on_finish: function(data){
+			jsPsych.data.addDataToLastTrial({is_data_element: false});
+		     	jsPsych.data.addDataToLastTrial({skipped:true});}
 		  }],
 
 	conditional_function: function(){
@@ -309,7 +320,10 @@ function exportToCsv(filename, rows) {
     var EX_3_W = {
 	//second if should only trigger if previous did not
 	type: 'single-stim',
-	timeline: [{ stimulus: 'images/EX 3 W.png'}],
+	timeline: [{ stimulus: 'images/EX 3 W.png',
+		     timing_response: 3000,
+		     data: {is_data_element: false},
+		  }],
 
 	conditional_function: function(){
 		var data = jsPsych.data.getLastTrialData();
@@ -324,12 +338,12 @@ function exportToCsv(filename, rows) {
     var EX_4 = {
 	type: 'single-stim',
 	choices: [37, 39],
-	timing_post_trial: 20,
+	//timing_post_trial: post_trial_gap,
 	data: {stimulus_type: 'right'},
 	stimulus: 'images/EX 4.png',
 	on_finish: function(data){
 		//label data as example
-		jsPsych.data.addDataToLastTrial({ignore: true});
+		jsPsych.data.addDataToLastTrial({is_data_element: false});
 		//labal data as correct or not.
 	    	var correct = false;
 
@@ -346,8 +360,10 @@ function exportToCsv(filename, rows) {
 	//attempting a multiple if system
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 4 C.png', 
-		     on_finish: function(data)
-		     	{jsPsych.data.addDataToLastTrial({skipped:true});}
+		     timing_response: 3000,
+		     on_finish: function(data){
+			jsPsych.data.addDataToLastTrial({is_data_element: false});
+		     	jsPsych.data.addDataToLastTrial({skipped:true});}
 		  }],
 
 	conditional_function: function(){
@@ -363,7 +379,10 @@ function exportToCsv(filename, rows) {
     var EX_4_W = {
 	//second if should only trigger if previous did not
 	type: 'single-stim',
-	timeline: [{ stimulus: 'images/EX 4 W.png'}],
+	timeline: [{ stimulus: 'images/EX 4 W.png',	
+		     timing_response: 3000,
+		     data: {is_data_element: false},
+		  }],
 
 	conditional_function: function(){
 		var data = jsPsych.data.getLastTrialData();
@@ -377,15 +396,48 @@ function exportToCsv(filename, rows) {
     }
 
     //generating an array of non-random images
-    i = 0;
     var test_trials= []; 
-    for (var i = 0; i < n_trials; i++) { //32 is number of images in the folder
-	test_trials.push({stimulus: stimuli[i],data: {stimulus_type: stimuli_types[i]}});
+    for (var i = 0; i < 32 ; i++) { //32 is number of images in the folder
+	test_trials.push({stimulus: stimuli[i],
+			  data: {stimulus_type: stimuli_types[i]},
+			  timing_response: 5000 } // 5 second repsonse time
+			  
+			);
 	
     }
-    // using jspsych to randomize given images into array of size n_trials defined at top of file
-    var test_trial_array = jsPsych.randomization.sample(test_trials, n_trials, false);
 
+    // Omission trials after each test stimulus slide
+    var omission = {
+	//attempting a multiple if system
+	type: 'single-stim',
+	timeline: [{ stimulus: 'images/omission.png',
+		     timing_response: 6000,
+		     on_finish: function(data)
+		     	{jsPsych.data.addDataToLastTrial({is_data_element: false});}
+		  }],
+
+	conditional_function: function(){
+		var data = jsPsych.data.getLastTrialData();
+			// response set to -1 if no response
+			if(data.key_press == -1){
+				return true;
+			} else {
+				return false;
+			}
+	}
+    }
+
+    // placing omission slide after each test slide
+    var test_trial_array = [];
+    for(var i = 0; i < 64; i++){
+    	// every other slide is omission slide
+	if(i%2 == 0 ){
+		test_trial_array.push(test_trials[i/2]);
+	}
+	else{
+		test_trial_array.push(omission);
+	}
+    }
 
     //main test trials are defined by this trial object. 
     var test_block_main = {
@@ -395,6 +447,7 @@ function exportToCsv(filename, rows) {
 	timeline: test_trial_array,
     	//added a function to record correct or not
         on_finish: function(data){
+		jsPsych.data.addDataToLastTrial({is_data_element: true});
 		//labal data as correct or not.
 	    	var correct = false;
 	   	if(data.stimulus_type == 'left' && data.key_press == 37){
@@ -411,9 +464,9 @@ function exportToCsv(filename, rows) {
 	  type: 'single-stim',
 	  stimulus: 'images/Instructions.png',
 	  timing_post_trial: 1000,
-	  //adding ignore label for welcome and instruction messages
+	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){
-	   	 jsPsych.data.addDataToLastTrial({ignore: true});
+	   	 jsPsych.data.addDataToLastTrial({is_data_element: false});
 	  },
     };
     // Define first instruction block which uses instruction image
@@ -421,17 +474,17 @@ function exportToCsv(filename, rows) {
 	  type: 'single-stim',
 	  stimulus: 'images/instruction_example.png',
 	  timing_post_trial: 1000,
-	  //adding ignore label for welcome and instruction messages
+	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){
-	   	 jsPsych.data.addDataToLastTrial({ignore: true});
+	   	 jsPsych.data.addDataToLastTrial({is_data_element: false});
 	  },
     };
     var debrief_block = {
 	  type: "text",
 	  text: [debrief],
-	  //adding ignore label for welcome and instruction messages
+	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){
-	   	jsPsych.data.addDataToLastTrial({ignore: true});
+	   	 jsPsych.data.addDataToLastTrial({is_data_element: false});
 	  },
     };
 
@@ -445,7 +498,8 @@ function exportToCsv(filename, rows) {
 	  			 EX_4, EX_4_C, EX_4_W, 
 	  			 second_instruction_block,
 	  			 test_block_main, debrief_block],
-
+	  
+ 
 	  on_finish: function(data) {
 	      // call from tutorial displays JSON string as final page
    	      // jsPsych.data.displayData();

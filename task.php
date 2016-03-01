@@ -41,9 +41,6 @@
 
   <script>
 
-    // Experiment parameters (instruction slide gives 32 as n_trials)
-    var n_trials = 32;
-
     var post_trial_gap = function() {
         return Math.floor( Math.random() * 1500 ) + 750;
     }
@@ -93,7 +90,7 @@
     var EX_1 = {
 	type: 'single-stim',
 	choices: [37, 39],
-	timing_post_trial: post_trial_gap,
+	//timing_post_trial: post_trial_gap,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 1.png',
 	on_finish: function(data){
@@ -147,7 +144,7 @@
     var EX_2 = {
 	type: 'single-stim',
 	choices: [37, 39],
-	timing_post_trial: post_trial_gap,
+	//timing_post_trial: post_trial_gap,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 2.png',
 	on_finish: function(data){
@@ -201,7 +198,7 @@
     var EX_3 = {
 	type: 'single-stim',
 	choices: [37, 39],
-	timing_post_trial: post_trial_gap,
+	//timing_post_trial: post_trial_gap,
 	data: {stimulus_type: 'right'},
 	stimulus: 'images/EX 3.png',
 	on_finish: function(data){
@@ -255,7 +252,7 @@
     var EX_4 = {
 	type: 'single-stim',
 	choices: [37, 39],
-	timing_post_trial: post_trial_gap,
+	//timing_post_trial: post_trial_gap,
 	data: {stimulus_type: 'right'},
 	stimulus: 'images/EX 4.png',
 	on_finish: function(data){
@@ -308,21 +305,54 @@
     }
 
     //generating an array of non-random images
-    i = 0;
     var test_trials= []; 
     for (var i = 0; i < 32 ; i++) { //32 is number of images in the folder
-	test_trials.push({stimulus: stimuli[i],data: {stimulus_type: stimuli_types[i]}});
+	test_trials.push({stimulus: stimuli[i],
+			  data: {stimulus_type: stimuli_types[i]},
+			  timing_response: 5000 } // 5 second repsonse time
+			  
+			);
 	
     }
-    // using jspsych to randomize given images into array of size n_trials defined at top of file
-    var test_trial_array = jsPsych.randomization.sample(test_trials, n_trials, false);
 
+    // Omission trials after each test stimulus slide
+    var omission = {
+	//attempting a multiple if system
+	type: 'single-stim',
+	timeline: [{ stimulus: 'images/omission.png',
+		     timing_response: 3000,
+		     on_finish: function(data)
+		     	{jsPsych.data.addDataToLastTrial({skipped:true});}
+		  }],
+
+	conditional_function: function(){
+		var data = jsPsych.data.getLastTrialData();
+			// response set to -1 if no response
+			if(data.key_press == -1){
+				return true;
+			} else {
+				return false;
+			}
+	}
+    }
+
+    // placing omission slide after each test slide
+    var test_trial_array = [];
+    for(var i = 0; i < 64; i++){
+    	// every other slide is omission slide
+	if(i%2 == 0 ){
+		test_trial_array.push(test_trials[i/2]);
+	}
+	else{
+		test_trial_array.push(omission);
+	}
+    }
 
     //main test trials are defined by this trial object. 
     var test_block_main = {
 	type: 'single-stim',
 	choices: [37, 39],
-	timing_post_trial: post_trial_gap,
+//	timing_post_trial: post_trial_gap,
 	timeline: test_trial_array,
     	//added a function to record correct or not
         on_finish: function(data){
@@ -376,7 +406,7 @@
 	  			 EX_4, EX_4_C, EX_4_W, 
 	  			 second_instruction_block,
 	  			 test_block_main, debrief_block],
-
+	  
 	  on_finish: function(data) {
 	      	//call from tutorial displays JSON string as final page
    		jsPsych.data.displayData();

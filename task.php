@@ -42,7 +42,7 @@
   <script>
 
     var post_trial_gap = function() {
-        return Math.floor( Math.random() * 1500 ) + 750;
+        return Math.floor( Math.random() * 1000 ) + 500;
     }
 
     //arrays of all available images and L/R value are manually paired by index for later use
@@ -95,7 +95,7 @@
 	stimulus: 'images/EX 1.png',
 	on_finish: function(data){
 		//label data as example
-		jsPsych.data.addDataToLastTrial({ignore: true});
+		jsPsych.data.addDataToLastTrial({is_data_element: false});
 		//labal data as correct or not.
 	    	var correct = false;
 
@@ -112,8 +112,10 @@
 	//attempting a multiple if system
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 1 C.png', 
-		     on_finish: function(data)
-		     	{jsPsych.data.addDataToLastTrial({skipped:true});}
+		     timing_response: 3000,
+		     on_finish: function(data){
+			jsPsych.data.addDataToLastTrial({is_data_element: false});
+		     	jsPsych.data.addDataToLastTrial({skipped:true});}
 		  }],
 
 	conditional_function: function(){
@@ -129,7 +131,11 @@
     var EX_1_W = {
 	//second if should only trigger if previous did not
 	type: 'single-stim',
-	timeline: [{ stimulus: 'images/EX 1 W.png'}],
+	timeline: [{ stimulus: 'images/EX 1 W.png',
+		     timing_response: 3000,
+		     data: {is_data_element: false},
+		  }],
+
 
 	conditional_function: function(){
 		var data = jsPsych.data.getLastTrialData();
@@ -149,7 +155,7 @@
 	stimulus: 'images/EX 2.png',
 	on_finish: function(data){
 		//label data as example
-		jsPsych.data.addDataToLastTrial({ignore: true});
+		jsPsych.data.addDataToLastTrial({is_data_element: false});
 		//labal data as correct or not.
 	    	var correct = false;
 
@@ -166,8 +172,10 @@
 	//attempting a multiple if system
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 2 C.png', 
-		     on_finish: function(data)
-		     	{jsPsych.data.addDataToLastTrial({skipped:true});}
+	             timing_response: 3000,
+		     on_finish: function(data){
+			jsPsych.data.addDataToLastTrial({is_data_element: false});
+		     	jsPsych.data.addDataToLastTrial({skipped:true});}
 		  }],
 
 	conditional_function: function(){
@@ -183,7 +191,11 @@
     var EX_2_W = {
 	//second if should only trigger if previous did not
 	type: 'single-stim',
-	timeline: [{ stimulus: 'images/EX 2 W.png'}],
+	timeline: [{ stimulus: 'images/EX 2 W.png',
+		     timing_response: 3000,
+		     data: {is_data_element: false},
+		  }],
+
 
 	conditional_function: function(){
 		var data = jsPsych.data.getLastTrialData();
@@ -203,7 +215,7 @@
 	stimulus: 'images/EX 3.png',
 	on_finish: function(data){
 		//label data as example
-		jsPsych.data.addDataToLastTrial({ignore: true});
+		jsPsych.data.addDataToLastTrial({is_data_element: false});
 		//labal data as correct or not.
 	    	var correct = false;
 
@@ -220,8 +232,10 @@
 	//attempting a multiple if system
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 3 C.png', 
-		     on_finish: function(data)
-		     	{jsPsych.data.addDataToLastTrial({skipped:true});}
+	             timing_response: 3000,
+		     on_finish: function(data){
+			jsPsych.data.addDataToLastTrial({is_data_element: false});
+		     	jsPsych.data.addDataToLastTrial({skipped:true});}
 		  }],
 
 	conditional_function: function(){
@@ -237,7 +251,10 @@
     var EX_3_W = {
 	//second if should only trigger if previous did not
 	type: 'single-stim',
-	timeline: [{ stimulus: 'images/EX 3 W.png'}],
+	timeline: [{ stimulus: 'images/EX 3 W.png',
+		     timing_response: 3000,
+		     data: {is_data_element: false},
+		  }],
 
 	conditional_function: function(){
 		var data = jsPsych.data.getLastTrialData();
@@ -257,7 +274,7 @@
 	stimulus: 'images/EX 4.png',
 	on_finish: function(data){
 		//label data as example
-		jsPsych.data.addDataToLastTrial({ignore: true});
+		jsPsych.data.addDataToLastTrial({is_data_element: false});
 		//labal data as correct or not.
 	    	var correct = false;
 
@@ -274,8 +291,10 @@
 	//attempting a multiple if system
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 4 C.png', 
-		     on_finish: function(data)
-		     	{jsPsych.data.addDataToLastTrial({skipped:true});}
+		     timing_response: 3000,
+		     on_finish: function(data){
+			jsPsych.data.addDataToLastTrial({is_data_element: false});
+		     	jsPsych.data.addDataToLastTrial({skipped:true});}
 		  }],
 
 	conditional_function: function(){
@@ -291,7 +310,10 @@
     var EX_4_W = {
 	//second if should only trigger if previous did not
 	type: 'single-stim',
-	timeline: [{ stimulus: 'images/EX 4 W.png'}],
+	timeline: [{ stimulus: 'images/EX 4 W.png',	
+		     timing_response: 3000,
+		     data: {is_data_element: false},
+		  }],
 
 	conditional_function: function(){
 		var data = jsPsych.data.getLastTrialData();
@@ -320,9 +342,9 @@
 	//attempting a multiple if system
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/omission.png',
-		     timing_response: 3000,
+		     timing_response: 4000,
 		     on_finish: function(data)
-		     	{jsPsych.data.addDataToLastTrial({skipped:true});}
+		     	{jsPsych.data.addDataToLastTrial({is_data_element: false});}
 		  }],
 
 	conditional_function: function(){
@@ -352,10 +374,11 @@
     var test_block_main = {
 	type: 'single-stim',
 	choices: [37, 39],
-//	timing_post_trial: post_trial_gap,
+	timing_post_trial: post_trial_gap,
 	timeline: test_trial_array,
     	//added a function to record correct or not
         on_finish: function(data){
+		jsPsych.data.addDataToLastTrial({is_data_element: true});
 		//labal data as correct or not.
 	    	var correct = false;
 	   	if(data.stimulus_type == 'left' && data.key_press == 37){
@@ -372,9 +395,9 @@
 	  type: 'single-stim',
 	  stimulus: 'images/Instructions.png',
 	  timing_post_trial: 2500,
-	  //adding ignore label for welcome and instruction messages
+	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){
-	   	 jsPsych.data.addDataToLastTrial({ignore: true});
+	   	 jsPsych.data.addDataToLastTrial({is_data_element: false});
 	  },
     };
     // Define first instruction block which uses instruction image
@@ -382,17 +405,17 @@
 	  type: 'single-stim',
 	  stimulus: 'images/instruction_example.png',
 	  timing_post_trial: 2500,
-	  //adding ignore label for welcome and instruction messages
+	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){
-	   	 jsPsych.data.addDataToLastTrial({ignore: true});
+	   	 jsPsych.data.addDataToLastTrial({is_data_element: false});
 	  },
     };
     var debrief_block = {
 	  type: "text",
 	  text: [debrief],
-	  //adding ignore label for welcome and instruction messages
+	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){
-	   	 jsPsych.data.addDataToLastTrial({ignore: true});
+	   	 jsPsych.data.addDataToLastTrial({is_data_element: false});
 	  },
     };
 

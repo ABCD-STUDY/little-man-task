@@ -147,10 +147,10 @@ function exportToCsv(filename, rows) {
 
     var instructions_EX = "<div id='instructions'><p>You will see a " +
 	"series of images that look similar to this:</p><p>" +
-	"<images src='images/1.png'></p><p>Press the arrow " +
-	"key that corresponds to which hand the little man is holding " +
-	"his briefcase in. For example, in this case you would press " +
-	"the left arrow key.</p><p>The first four images are practice " + 
+	"<images src='images/1.png'></p><p>Press key '8' " +
+	"if the little man is holding the case left, key '9' if the little man is holding " +
+	"his briefcase in in his right hand. For example, in this case you would press " +
+	"the key '8' (left hand).</p><p>The first four images are practice " + 
 	"Press enter to start.</p>";
 
     var debrief = "<div id='instructions'><p>Thank you for " +
@@ -158,7 +158,7 @@ function exportToCsv(filename, rows) {
 
     var EX_1 = {
 	type: 'single-stim',
-	choices: [37, 39],
+	choices: [56, 57],
 	//timing_post_trial: post_trial_gap,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 1.png',
@@ -168,9 +168,9 @@ function exportToCsv(filename, rows) {
 		//labal data as correct or not.
 	    	var correct = false;
 
-	   	if(data.stimulus_type == 'left' && data.key_press == 37){
+	   	if(data.stimulus_type == 'left' && data.key_press == 56){
 	      		correct = true;
-	   	} else if(data.stimulus_type == 'right' && data.key_press == 39){
+	   	} else if(data.stimulus_type == 'right' && data.key_press == 57){
 	      		correct = true;
 	  	}
 	   	jsPsych.data.addDataToLastTrial({correct: correct});
@@ -218,7 +218,7 @@ function exportToCsv(filename, rows) {
     }
     var EX_2 = {
 	type: 'single-stim',
-	choices: [37, 39],
+	choices: [56, 57],
 	//timing_post_trial: post_trial_gap,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 2.png',
@@ -228,9 +228,9 @@ function exportToCsv(filename, rows) {
 		//labal data as correct or not.
 	    	var correct = false;
 
-	   	if(data.stimulus_type == 'left' && data.key_press == 37){
+	   	if(data.stimulus_type == 'left' && data.key_press == 56){
 	      		correct = true;
-	   	} else if(data.stimulus_type == 'right' && data.key_press == 39){
+	   	} else if(data.stimulus_type == 'right' && data.key_press == 57){
 	      		correct = true;
 	  	}
 	   	jsPsych.data.addDataToLastTrial({correct: correct});
@@ -278,7 +278,7 @@ function exportToCsv(filename, rows) {
     }
     var EX_3 = {
 	type: 'single-stim',
-	choices: [37, 39],
+	choices: [56, 57],
 	//timing_post_trial: post_trial_gap,
 	data: {stimulus_type: 'right'},
 	stimulus: 'images/EX 3.png',
@@ -288,9 +288,9 @@ function exportToCsv(filename, rows) {
 		//labal data as correct or not.
 	    	var correct = false;
 
-	   	if(data.stimulus_type == 'left' && data.key_press == 37){
+	   	if(data.stimulus_type == 'left' && data.key_press == 56){
 	      		correct = true;
-	   	} else if(data.stimulus_type == 'right' && data.key_press == 39){
+	   	} else if(data.stimulus_type == 'right' && data.key_press == 57){
 	      		correct = true;
 	  	}
 	   	jsPsych.data.addDataToLastTrial({correct: correct});
@@ -337,7 +337,7 @@ function exportToCsv(filename, rows) {
     }
     var EX_4 = {
 	type: 'single-stim',
-	choices: [37, 39],
+	choices: [56, 57],
 	//timing_post_trial: post_trial_gap,
 	data: {stimulus_type: 'right'},
 	stimulus: 'images/EX 4.png',
@@ -347,9 +347,9 @@ function exportToCsv(filename, rows) {
 		//labal data as correct or not.
 	    	var correct = false;
 
-	   	if(data.stimulus_type == 'left' && data.key_press == 37){
+	   	if(data.stimulus_type == 'left' && data.key_press == 56){
 	      		correct = true;
-	   	} else if(data.stimulus_type == 'right' && data.key_press == 39){
+	   	} else if(data.stimulus_type == 'right' && data.key_press == 57){
 	      		correct = true;
 	  	}
 	   	jsPsych.data.addDataToLastTrial({correct: correct});
@@ -442,7 +442,7 @@ function exportToCsv(filename, rows) {
     //main test trials are defined by this trial object. 
     var test_block_main = {
 	type: 'single-stim',
-	choices: [37, 39],
+	choices: [56, 57],
 	timing_post_trial: post_trial_gap,
 	timeline: test_trial_array,
     	//added a function to record correct or not
@@ -450,9 +450,9 @@ function exportToCsv(filename, rows) {
 		jsPsych.data.addDataToLastTrial({is_data_element: true});
 		//labal data as correct or not.
 	    	var correct = false;
-	   	if(data.stimulus_type == 'left' && data.key_press == 37){
+	   	if(data.stimulus_type == 'left' && data.key_press == 56){
 	      		correct = true;
-	   	} else if(data.stimulus_type == 'right' && data.key_press == 39){
+	   	} else if(data.stimulus_type == 'right' && data.key_press == 57){
 	      		correct = true;
 	  	}
 	   	jsPsych.data.addDataToLastTrial({correct: correct});

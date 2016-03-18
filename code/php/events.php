@@ -32,12 +32,12 @@
    $subjid = "";
    $sessionid = "";
    $active_substances = array();
-   if ( isset($_SESSION['ABCD']) && isset($_SESSION['ABCD']['timeline-followback']) ) {
-      if (isset($_SESSION['ABCD']['timeline-followback']['subjid'])) {  
-         $subjid  = $_SESSION['ABCD']['timeline-followback']['subjid'];
+   if ( isset($_SESSION['ABCD']) && isset($_SESSION['ABCD']['little-man-task']) ) {
+      if (isset($_SESSION['ABCD']['little-man-task']['subjid'])) {  
+         $subjid  = $_SESSION['ABCD']['little-man-task']['subjid'];
       }
-      if (isset($_SESSION['ABCD']['timeline-followback']['sessionid'])) {
-         $sessionid  = $_SESSION['ABCD']['timeline-followback']['sessionid'];
+      if (isset($_SESSION['ABCD']['little-man-task']['sessionid'])) {
+         $sessionid  = $_SESSION['ABCD']['little-man-task']['sessionid'];
       }      
    }
    if ($subjid == "") {

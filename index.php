@@ -208,7 +208,8 @@
           <div class="col-lg-12">
             <div class="modal-body">
               <div>
-                <button id="open-lmt-button" type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-save"></i> Start Little-Man-Task</button> &nbsp;
+                <button id="open-lmt-button" type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-save"></i> Start Little-Man-Task (touch)</button> &nbsp;
+                <button id="open-lmt2-button" type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-save"></i> Start Little-Man-Task (keyboard left: '8', right: '9')</button> &nbsp;
                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Back</button>&nbsp;
               </div>
             </div><!-- /.modal-body -->

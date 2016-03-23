@@ -57,19 +57,11 @@
     <script src="js/jspsych/jspsych.js"></script>
     <script src="js/jspsych/plugins/jspsych-text.js"></script>
     <script src="js/jspsych/plugins/jspsych-single-stim.js"></script>
-    <script src="js/jspsych/plugins/jspsych-button-response.js"></script>
     <script src="js/moment.min.js"></script>
     <!-- Load the stylesheet -->
     <!-- <link href="experiment.css" type="text/css" rel="stylesheet"></link> -->
     <link href="js/jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
-    <style>
-.jspsych-btn {
-  margin-right: 20px;
-  border-radius: 40px;
-  width: 80px;
-  height: 80px;
-}
-    </style>
+
   </head>
 
   <body>
@@ -123,7 +115,7 @@ function exportToCsv(filename, rows) {
     }
 
     // for a touch screen we do not have an enter button (this simulates enter on keydown)
-    jQuery('body').on('touchstart', function() { var e = jQuery.Event('keydown'); e.which = 13; jQuery('body').trigger(e); });
+    //jQuery('body').on('touchstart', function() { var e = jQuery.Event('keydown'); e.which = 13; jQuery('body').trigger(e); });
 
     //arrays of all available images and L/R value are manually paired by index for later use
     var stimuli=["images/1.png", "images/2.png", "images/3.png", "images/4.png", 
@@ -168,8 +160,8 @@ function exportToCsv(filename, rows) {
 	  "participating! Press enter to see the data.</p></div>";
 
     var EX_1 = {
-	type: 'button-response',
-	choices: ['left', 'right'],
+	type: 'single-stim',
+	choices: [56, 57],
 	//timing_post_trial: post_trial_gap,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 1.png',
@@ -179,9 +171,9 @@ function exportToCsv(filename, rows) {
 		//labal data as correct or not.
 	    	var correct = false;
 
-	   	if(data.stimulus_type == 'left' && data.button_pressed == 0){
+	   	if(data.stimulus_type == 'left' && data.key_press == 56){
 	      		correct = true;
-	   	} else if(data.stimulus_type == 'right' && data.button_pressed == 1){
+	   	} else if(data.stimulus_type == 'right' && data.key_press == 57){
 	      		correct = true;
 	  	}
 	   	jsPsych.data.addDataToLastTrial({correct: correct});
@@ -228,8 +220,8 @@ function exportToCsv(filename, rows) {
 
     }
     var EX_2 = {
-	type: 'button-response',
-	choices: ['left', 'right'],
+	type: 'single-stim',
+	choices: [56, 57],
 	//timing_post_trial: post_trial_gap,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 2.png',
@@ -239,9 +231,9 @@ function exportToCsv(filename, rows) {
 		//labal data as correct or not.
 	    	var correct = false;
 
-	   	if(data.stimulus_type == 'left' && data.button_pressed == 0){
+	   	if(data.stimulus_type == 'left' && data.key_press == 56){
 	      		correct = true;
-	   	} else if(data.stimulus_type == 'right' && data.button_pressed == 1){
+	   	} else if(data.stimulus_type == 'right' && data.key_press == 57){
 	      		correct = true;
 	  	}
 	   	jsPsych.data.addDataToLastTrial({correct: correct});
@@ -288,8 +280,8 @@ function exportToCsv(filename, rows) {
 
     }
     var EX_3 = {
-	type: 'button-response',
-	choices: ['left', 'right'],
+	type: 'single-stim',
+	choices: [56, 57],
 	//timing_post_trial: post_trial_gap,
 	data: {stimulus_type: 'right'},
 	stimulus: 'images/EX 3.png',
@@ -299,9 +291,9 @@ function exportToCsv(filename, rows) {
 		//labal data as correct or not.
 	    	var correct = false;
 
-	   	if(data.stimulus_type == 'left' && data.button_pressed == 0){
+	   	if(data.stimulus_type == 'left' && data.key_press == 56){
 	      		correct = true;
-	   	} else if(data.stimulus_type == 'right' && data.button_pressed == 1){
+	   	} else if(data.stimulus_type == 'right' && data.key_press == 57){
 	      		correct = true;
 	  	}
 	   	jsPsych.data.addDataToLastTrial({correct: correct});
@@ -347,8 +339,8 @@ function exportToCsv(filename, rows) {
 
     }
     var EX_4 = {
-	type: 'button-response',
-	choices: ['left', 'right'],
+	type: 'single-stim',
+	choices: [56, 57],
 	//timing_post_trial: post_trial_gap,
 	data: {stimulus_type: 'right'},
 	stimulus: 'images/EX 4.png',
@@ -358,9 +350,9 @@ function exportToCsv(filename, rows) {
 		//labal data as correct or not.
 	    	var correct = false;
 
-	   	if(data.stimulus_type == 'left' && data.button_pressed == 0){
+	   	if(data.stimulus_type == 'left' && data.key_press == 56){
 	      		correct = true;
-	   	} else if(data.stimulus_type == 'right' && data.button_pressed == 1){
+	   	} else if(data.stimulus_type == 'right' && data.key_press == 57){
 	      		correct = true;
 	  	}
 	   	jsPsych.data.addDataToLastTrial({correct: correct});
@@ -452,8 +444,8 @@ function exportToCsv(filename, rows) {
 
     //main test trials are defined by this trial object. 
     var test_block_main = {
-	type: 'button-response',
-	choices: ['left', 'right'],
+	type: 'single-stim',
+	choices: [56, 57],
 	timing_post_trial: post_trial_gap,
 	timeline: test_trial_array,
     	//added a function to record correct or not
@@ -461,9 +453,9 @@ function exportToCsv(filename, rows) {
 		jsPsych.data.addDataToLastTrial({is_data_element: true});
 		//labal data as correct or not.
 	    	var correct = false;
-	   	if(data.stimulus_type == 'left' && data.button_pressed == 0){
+	   	if(data.stimulus_type == 'left' && data.key_press == 56){
 	      		correct = true;
-	   	} else if(data.stimulus_type == 'right' && data.button_pressed == 1){
+	   	} else if(data.stimulus_type == 'right' && data.key_press == 57){
 	      		correct = true;
 	  	}
 	   	jsPsych.data.addDataToLastTrial({correct: correct});
@@ -472,9 +464,8 @@ function exportToCsv(filename, rows) {
 
     // Define second instruction block which uses instruction image
     var second_instruction_block = {
-	  type: 'text',
-	  cont_key: 'mouse',
-	  text: '<center><image src="images/Instructions.png"></center>',
+	  type: 'single-stim',
+	  stimulus: 'images/Instructions.png',
 	  timing_post_trial: 1000,
 	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){
@@ -483,9 +474,8 @@ function exportToCsv(filename, rows) {
     };
     // Define first instruction block which uses instruction image
     var first_instruction_block = {
-	  type: 'text',
-	  cont_key: 'mouse',
-	  text: '<center><image src="images/instruction_example.png"></center>',
+	  type: 'single-stim',
+	  stimulus: 'images/instruction_example.png',
 	  timing_post_trial: 1000,
 	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){
@@ -494,7 +484,6 @@ function exportToCsv(filename, rows) {
     };
     var debrief_block = {
 	  type: "text",
-	  cont_key: 'mouse',
 	  text: [debrief],
 	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){

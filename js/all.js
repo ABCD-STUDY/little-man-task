@@ -140,6 +140,16 @@ jQuery(document).ready(function() {
 	window.location = '/applications/little-man-task/task.php';
     });
     
+    jQuery('#open-lmt2-button').click(function() {
+        // mark this one as started
+	jQuery.getJSON('code/php/events.php?action=mark&status=started&user_name='+user_name, function(data) {
+	    console.log(data);
+	});
+
+	// redirect to the task.php page
+	window.location = '/applications/little-man-task/task-keyboard.php';
+    });
+    
     // 
     jQuery('#save-session-button').click(function() {
 	// test if subjid matches

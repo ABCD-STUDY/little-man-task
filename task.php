@@ -135,7 +135,7 @@ function exportToCsv(filename, rows) {
 		"images/25.png", "images/26.png", "images/27.png", "images/28.png", 
 		"images/29.png", "images/30.png", "images/31.png", "images/32.png", 
 		];
-
+    jsPsych.preloadImages(stimuli, function(){ startExperiment(); });
     var stimuli_types = ["left","right","left","right","right","left",
     			"right","left","right","right","left","left",
 			"right","left","left","right","right","left",
@@ -170,7 +170,7 @@ function exportToCsv(filename, rows) {
     var EX_1 = {
 	type: 'button-response',
 	choices: ['left', 'right'],
-	//timing_post_trial: post_trial_gap,
+	timing_post_trial: 0,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 1.png',
 	on_finish: function(data){
@@ -192,7 +192,7 @@ function exportToCsv(filename, rows) {
 	//attempting a multiple if system
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 1 C.png', 
-		     timing_response: 3000,
+		     
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
 		     	jsPsych.data.addDataToLastTrial({skipped:true});}
@@ -212,7 +212,7 @@ function exportToCsv(filename, rows) {
 	//second if should only trigger if previous did not
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 1 W.png',
-		     timing_response: 3000,
+		     
 		     data: {is_data_element: false},
 		  }],
 
@@ -230,7 +230,7 @@ function exportToCsv(filename, rows) {
     var EX_2 = {
 	type: 'button-response',
 	choices: ['left', 'right'],
-	//timing_post_trial: post_trial_gap,
+	timing_post_trial: 0,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 2.png',
 	on_finish: function(data){
@@ -252,7 +252,7 @@ function exportToCsv(filename, rows) {
 	//attempting a multiple if system
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 2 C.png', 
-	             timing_response: 3000,
+	             
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
 		     	jsPsych.data.addDataToLastTrial({skipped:true});}
@@ -272,7 +272,7 @@ function exportToCsv(filename, rows) {
 	//second if should only trigger if previous did not
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 2 W.png',
-		     timing_response: 3000,
+		     
 		     data: {is_data_element: false},
 		  }],
 
@@ -290,7 +290,7 @@ function exportToCsv(filename, rows) {
     var EX_3 = {
 	type: 'button-response',
 	choices: ['left', 'right'],
-	//timing_post_trial: post_trial_gap,
+	timing_post_trial: 0,
 	data: {stimulus_type: 'right'},
 	stimulus: 'images/EX 3.png',
 	on_finish: function(data){
@@ -312,7 +312,7 @@ function exportToCsv(filename, rows) {
 	//attempting a multiple if system
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 3 C.png', 
-	             timing_response: 3000,
+	             
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
 		     	jsPsych.data.addDataToLastTrial({skipped:true});}
@@ -332,7 +332,7 @@ function exportToCsv(filename, rows) {
 	//second if should only trigger if previous did not
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 3 W.png',
-		     timing_response: 3000,
+		     
 		     data: {is_data_element: false},
 		  }],
 
@@ -349,7 +349,7 @@ function exportToCsv(filename, rows) {
     var EX_4 = {
 	type: 'button-response',
 	choices: ['left', 'right'],
-	//timing_post_trial: post_trial_gap,
+	timing_post_trial: 0,
 	data: {stimulus_type: 'right'},
 	stimulus: 'images/EX 4.png',
 	on_finish: function(data){
@@ -371,7 +371,7 @@ function exportToCsv(filename, rows) {
 	//attempting a multiple if system
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 4 C.png', 
-		     timing_response: 3000,
+		     
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
 		     	jsPsych.data.addDataToLastTrial({skipped:true});}
@@ -391,7 +391,7 @@ function exportToCsv(filename, rows) {
 	//second if should only trigger if previous did not
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 4 W.png',	
-		     timing_response: 3000,
+		     
 		     data: {is_data_element: false},
 		  }],
 

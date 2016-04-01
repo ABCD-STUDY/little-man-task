@@ -162,7 +162,7 @@ function exportToCsv(filename, rows) {
     var EX_1 = {
 	type: 'single-stim',
 	choices: [56, 57],
-	//timing_post_trial: post_trial_gap,
+	timing_post_trial: 0,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 1.png',
 	on_finish: function(data){
@@ -184,7 +184,7 @@ function exportToCsv(filename, rows) {
 	//attempting a multiple if system
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 1 C.png', 
-		     timing_response: 3000,
+		     
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
 		     	jsPsych.data.addDataToLastTrial({skipped:true});}
@@ -204,7 +204,7 @@ function exportToCsv(filename, rows) {
 	//second if should only trigger if previous did not
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 1 W.png',
-		     timing_response: 3000,
+		     
 		     data: {is_data_element: false},
 		  }],
 
@@ -222,7 +222,7 @@ function exportToCsv(filename, rows) {
     var EX_2 = {
 	type: 'single-stim',
 	choices: [56, 57],
-	//timing_post_trial: post_trial_gap,
+	timing_post_trial: 0,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 2.png',
 	on_finish: function(data){
@@ -244,7 +244,7 @@ function exportToCsv(filename, rows) {
 	//attempting a multiple if system
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 2 C.png', 
-	             timing_response: 3000,
+	             
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
 		     	jsPsych.data.addDataToLastTrial({skipped:true});}
@@ -264,7 +264,7 @@ function exportToCsv(filename, rows) {
 	//second if should only trigger if previous did not
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 2 W.png',
-		     timing_response: 3000,
+		     
 		     data: {is_data_element: false},
 		  }],
 
@@ -282,7 +282,7 @@ function exportToCsv(filename, rows) {
     var EX_3 = {
 	type: 'single-stim',
 	choices: [56, 57],
-	//timing_post_trial: post_trial_gap,
+	timing_post_trial: 0,
 	data: {stimulus_type: 'right'},
 	stimulus: 'images/EX 3.png',
 	on_finish: function(data){
@@ -304,7 +304,7 @@ function exportToCsv(filename, rows) {
 	//attempting a multiple if system
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 3 C.png', 
-	             timing_response: 3000,
+	             
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
 		     	jsPsych.data.addDataToLastTrial({skipped:true});}
@@ -324,7 +324,7 @@ function exportToCsv(filename, rows) {
 	//second if should only trigger if previous did not
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 3 W.png',
-		     timing_response: 3000,
+		     
 		     data: {is_data_element: false},
 		  }],
 
@@ -341,7 +341,7 @@ function exportToCsv(filename, rows) {
     var EX_4 = {
 	type: 'single-stim',
 	choices: [56, 57],
-	//timing_post_trial: post_trial_gap,
+	timing_post_trial: 0,
 	data: {stimulus_type: 'right'},
 	stimulus: 'images/EX 4.png',
 	on_finish: function(data){
@@ -363,7 +363,7 @@ function exportToCsv(filename, rows) {
 	//attempting a multiple if system
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 4 C.png', 
-		     timing_response: 3000,
+		     
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
 		     	jsPsych.data.addDataToLastTrial({skipped:true});}
@@ -383,7 +383,7 @@ function exportToCsv(filename, rows) {
 	//second if should only trigger if previous did not
 	type: 'single-stim',
 	timeline: [{ stimulus: 'images/EX 4 W.png',	
-		     timing_response: 3000,
+		     
 		     data: {is_data_element: false},
 		  }],
 

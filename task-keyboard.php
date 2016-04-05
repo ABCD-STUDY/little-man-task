@@ -475,8 +475,10 @@ function exportToCsv(filename, rows) {
     // Define first instruction block which uses instruction image
     var first_instruction_block = {
 	  type: 'single-stim',
-	  stimulus: 'images/instruction_example.png',
-	  timing_post_trial: 1000,
+	  timeline: [{stimulus: 'images/instruction_example_keyboard.png'},
+		     {stimulus: 'images/instruction2.png'},
+		     {stimulus: 'images/instruction3.png'}],
+	  timing_post_trial: 0,
 	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){
 	   	 jsPsych.data.addDataToLastTrial({is_data_element: false});

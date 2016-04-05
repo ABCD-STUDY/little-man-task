@@ -135,7 +135,7 @@ function exportToCsv(filename, rows) {
 		"images/25.png", "images/26.png", "images/27.png", "images/28.png", 
 		"images/29.png", "images/30.png", "images/31.png", "images/32.png", 
 		];
-    jsPsych.preloadImages(stimuli, function(){ startExperiment(); });
+    //jsPsych.preloadImages(stimuli, function(){ startExperiment(); });
     var stimuli_types = ["left","right","left","right","right","left",
     			"right","left","right","right","left","left",
 			"right","left","left","right","right","left",
@@ -484,9 +484,11 @@ function exportToCsv(filename, rows) {
     // Define first instruction block which uses instruction image
     var first_instruction_block = {
 	  type: 'text',
-	  cont_key: 'mouse',
-	  text: '<center><image src="images/instruction_example.png"></center>',
-	  timing_post_trial: 1000,
+          cont_key: 'mouse',
+	  timeline: [{text: '<center><image src="images/instruction_example.png"></center>'},
+		     {text: '<center><image src="images/instruction2.png"></center>'},
+		     {text: '<center><image src="images/instruction3.png"></center>'}],
+	  timing_post_trial: 0,
 	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){
 	   	 jsPsych.data.addDataToLastTrial({is_data_element: false});

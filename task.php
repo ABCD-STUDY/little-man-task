@@ -189,9 +189,11 @@ function exportToCsv(filename, rows) {
 
      }
      var EX_1_C = {
-	//attempting a multiple if system
-	type: 'single-stim',
-	timeline: [{ stimulus: 'images/EX 1 C.png', 
+	     //attempting a multiple if system
+ 	type: 'button-response',
+	choices: ['next'],
+	timing_post_trial: 0,
+	timeline: [{ stimulus: 'images/EX 1 C.png',
 		     
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -210,7 +212,9 @@ function exportToCsv(filename, rows) {
         
     var EX_1_W = {
 	//second if should only trigger if previous did not
-	type: 'single-stim',
+	type: 'button-response',
+	choices: ['next'],
+	timing_post_trial: 0,
 	timeline: [{ stimulus: 'images/EX 1 W.png',
 		     
 		     data: {is_data_element: false},
@@ -250,7 +254,9 @@ function exportToCsv(filename, rows) {
      }
      var EX_2_C = {
 	//attempting a multiple if system
-	type: 'single-stim',
+	type: 'button-response',
+	choices: ['next'],
+	timing_post_trial: 0,
 	timeline: [{ stimulus: 'images/EX 2 C.png', 
 	             
 		     on_finish: function(data){
@@ -270,7 +276,9 @@ function exportToCsv(filename, rows) {
         
     var EX_2_W = {
 	//second if should only trigger if previous did not
-	type: 'single-stim',
+	type: 'button-response',
+	choices: ['next'],
+	timing_post_trial: 0,
 	timeline: [{ stimulus: 'images/EX 2 W.png',
 		     
 		     data: {is_data_element: false},
@@ -310,7 +318,9 @@ function exportToCsv(filename, rows) {
      }
      var EX_3_C = {
 	//attempting a multiple if system
-	type: 'single-stim',
+	type: 'button-response',
+	choices: ['next'],
+	timing_post_trial: 0,
 	timeline: [{ stimulus: 'images/EX 3 C.png', 
 	             
 		     on_finish: function(data){
@@ -330,7 +340,9 @@ function exportToCsv(filename, rows) {
         
     var EX_3_W = {
 	//second if should only trigger if previous did not
-	type: 'single-stim',
+	type: 'button-response',
+	choices: ['next'],
+	timing_post_trial: 0,
 	timeline: [{ stimulus: 'images/EX 3 W.png',
 		     
 		     data: {is_data_element: false},
@@ -369,7 +381,9 @@ function exportToCsv(filename, rows) {
      }
      var EX_4_C = {
 	//attempting a multiple if system
-	type: 'single-stim',
+	type: 'button-response',
+	choices: ['next'],
+	timing_post_trial: 0,
 	timeline: [{ stimulus: 'images/EX 4 C.png', 
 		     
 		     on_finish: function(data){
@@ -389,7 +403,9 @@ function exportToCsv(filename, rows) {
         
     var EX_4_W = {
 	//second if should only trigger if previous did not
-	type: 'single-stim',
+	type: 'button-response',
+	choices: ['next'],
+	timing_post_trial: 0,
 	timeline: [{ stimulus: 'images/EX 4 W.png',	
 		     
 		     data: {is_data_element: false},
@@ -430,7 +446,7 @@ function exportToCsv(filename, rows) {
 	conditional_function: function(){
 		var data = jsPsych.data.getLastTrialData();
 			// response set to -1 if no response
-			if(data.key_press == -1){
+			if(data.button_pressed == -1){
 				return true;
 			} else {
 				return false;
@@ -471,11 +487,15 @@ function exportToCsv(filename, rows) {
     }
 
     // Define second instruction block which uses instruction image
+    // COMMENTED OUT UNTIL CONT KEY BUG IS ANALYZED
     var second_instruction_block = {
-	  type: 'text',
-	  cont_key: 'mouse',
-	  text: '<center><image src="images/Instructions.png"></center>',
+	  //type: 'text',
+	  //cont_key: 'mouse',
+	    //text: '<center><image src="images/Instructions.png"></center>',
+	  type: 'button-response',
+	  choices: ['next'],
 	  timing_post_trial: 1000,
+	  stimulus: 'images/Instructions.png',
 	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){
 	   	 jsPsych.data.addDataToLastTrial({is_data_element: false});

@@ -156,6 +156,10 @@ function exportToCsv(filename, rows) {
 			"right","left",
 			];
 
+    var correct_wrong = ["images/EX 1 C.png", "images/EX 2 C.png", "images/EX 3 C.png", "images/EX 4 C.png",
+	   		 "images/EX 1 W.png", "images/EX 2 W.png", "images/EX 3 W.png", "images/EX 4 W.png",
+			 "images/instruction3.png", "images/instruction2.png","images/instruction_example.png",
+		 	 "images/Instructions.png", "images/omission.png"];
 
     // Example slides
     var stimuli_EX =["images/EX 1.png", "images/EX 2.png", "images/EX 3.png", "images/EX 4.png"];
@@ -516,11 +520,12 @@ function exportToCsv(filename, rows) {
     };
     // Define first instruction block which uses instruction image
     var first_instruction_block = {
-	  type: 'text',
-          cont_key: 'mouse',
-	  timeline: [{text: '<center><image src="images/instruction_example.png"></center>'},
-		     {text: '<center><image src="images/instruction2.png"></center>'},
-		     {text: '<center><image src="images/instruction3.png"></center>'}],
+	  type: 'button-response',
+	  choices: ['next'],
+          //cont_key: 'mouse',
+	  timeline: [{stimulus: "images/instruction_example.png"},
+		     {stimulus: "images/instruction2.png"},
+		     {stimulus: "images/instruction3.png"}],
 	  timing_post_trial: 0,
 	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){
@@ -540,6 +545,7 @@ function exportToCsv(filename, rows) {
     //preload all images used
     jsPsych.pluginAPI.preloadImages(stimuli, function(){preloadAll();});
     function preloadAll(){
+    	jsPsych.pluginAPI.preloadImages(correct_wrong);
     	jsPsych.pluginAPI.preloadImages(stimuli_EX, function(){ startExperiment(); });
     }
 

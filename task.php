@@ -64,6 +64,9 @@
     <link href="js/jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <style>
 .jspsych-btn {
+//fixed to bottom of screen
+  position:relative;
+  margin-top: 100%;
   margin-right: 20px;
   border-radius: 40px;
   width: 80px;
@@ -171,6 +174,7 @@ function exportToCsv(filename, rows) {
 	type: 'button-response',
 	choices: ['left', 'right'],
 	timing_post_trial: 0,
+	button_html: '<button class="jspsych-btn">%choice%</button>',
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 1.png',
 	on_finish: function(data){

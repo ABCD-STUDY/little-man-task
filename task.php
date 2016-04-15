@@ -66,7 +66,7 @@
 .jspsych-btn {
 //fixed to bottom of screen
   position:relative;
-  margin-top: 80%;
+  margin-top: 60%;
   margin-right: 20px;
   border-radius: 40px;
   width: 80px;

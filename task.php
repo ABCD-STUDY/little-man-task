@@ -68,9 +68,11 @@
   position:relative;
   margin-top: 60%;
   margin-right: 20px;
-  border-radius: 40px;
-  width: 80px;
-  height: 80px;
+  border-radius: 50px;
+  width: 100px;
+  height: 100px;
+  display: hidden;
+  
 }
     </style>
   </head>
@@ -474,7 +476,7 @@ function exportToCsv(filename, rows) {
     var test_block_main = {
 	type: 'button-response',
 	choices: ['left', 'right'],
-	timing_post_trial: post_trial_gap,
+	timing_post_trial: 0,//post_trial_gap,
 	timeline: test_trial_array,
     	//added a function to record correct or not
         on_finish: function(data){

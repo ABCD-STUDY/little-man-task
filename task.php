@@ -68,6 +68,7 @@
   position:relative;
   margin-top: 60%;
   margin-right: 20px;
+  margin-left: 20px;
   border-radius: 50px;
 
   

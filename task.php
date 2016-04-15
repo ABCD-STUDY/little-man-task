@@ -537,6 +537,13 @@ function exportToCsv(filename, rows) {
 	  },
     };
 
+    //preload all images used
+    jsPsych.pluginAPI.preloadImages(stimuli, function(){preloadAll();});
+    function preloadAll(){
+    	jsPsych.pluginAPI.preloadImages(stimuli_EX, function(){ startExperiment(); });
+    }
+
+function startExperiment(){
     jsPsych.init({
 	  display_element: $('#jspsych_target'),
 	  //order of experiment includes an example section
@@ -567,6 +574,8 @@ function exportToCsv(filename, rows) {
 
 	  }
     });
+
+}
 </script>
 </html>
     

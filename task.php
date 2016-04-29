@@ -64,13 +64,12 @@
     <link href="js/jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <style>
 .jspsych-btn {
-//fixed to bottom of screen
-  position:relative;
-  margin-top: 60%;
+  position:absolute;
+  margin-bottom: 0%;
   margin-right: 20px;
   margin-left: 20px;
   border-radius: 50px;
-
+  bottom: 20px;
   
 }
 #jspsych-button-response-button-0 {

@@ -64,21 +64,21 @@
     <link href="js/jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <style>
 .jspsych-btn {
-  position:absolute;
-  margin-bottom: 0%;
-  margin-right: 20px;
-  margin-left: 20px;
+  position: absolute;
   border-radius: 50px;
-  bottom: 20px;
+  bottom: 40px;
   
 }
 #jspsych-button-response-button-0 {
   width: 100px;
   height: 100px;
+  left: 30%;
 }
 #jspsych-button-response-button-1 {
   width: 100px;
   height: 100px;
+  right: 30%;
+  
 }
 
     </style>
@@ -181,7 +181,10 @@ function exportToCsv(filename, rows) {
 	"Press enter to start.</p>";
 
     var debrief = "<div id='instructions'><p>Thank you for " +
-	  "participating! Press enter to see the data.</p></div>";
+	    "participating! Press enter to see the data.</p></div>";
+
+    // line for mouse forward function
+    jQuery('body').on('touchstart', function() { jQuery('#inst').click(); jQuery('#instructions').click(); });
 
     var EX_1 = {
 	type: 'button-response',
@@ -504,15 +507,14 @@ function exportToCsv(filename, rows) {
     }
 
     // Define second instruction block which uses instruction image
-    // COMMENTED OUT UNTIL CONT KEY BUG IS ANALYZED
     var second_instruction_block = {
-	  //type: 'text',
-	  //cont_key: 'mouse',
-	    //text: '<center><image src="images/Instructions.png"></center>',
-	  type: 'button-response',
-	  choices: ['next'],
+	  type: 'text',
+	  cont_key: 'mouse',
+	  text: '<center><image src="images/Instructions.png"></center>',
+	  //type: 'button-response',
+	  //choices: ['next'],
 	  timing_post_trial: 1000,
-	  stimulus: 'images/Instructions.png',
+	  //stimulus: 'images/Instructions.png',
 	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){
 	   	 jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -520,12 +522,11 @@ function exportToCsv(filename, rows) {
     };
     // Define first instruction block which uses instruction image
     var first_instruction_block = {
-	  type: 'button-response',
-	  choices: ['next'],
-          //cont_key: 'mouse',
-	  timeline: [{stimulus: "images/instruction_example.png"},
-		     {stimulus: "images/instruction2.png"},
-		     {stimulus: "images/instruction3.png"}],
+	  type: 'text',
+          cont_key: 'mouse',
+	  timeline: [{text: '<center><image src="images/instruction_example.png"></center>'},
+		     {text: '<center><image src="images/instruction2.png"></center>'},
+		     {text: '<center><image src="images/instruction3.png"></center>'}],
 	  timing_post_trial: 0,
 	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){

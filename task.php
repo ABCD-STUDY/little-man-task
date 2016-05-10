@@ -63,6 +63,17 @@
     <!-- <link href="experiment.css" type="text/css" rel="stylesheet"></link> -->
     <link href="js/jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <style>
+
+p {
+   color: rgb(85,255,85);
+   font-family: sans-serif;
+   font-weight: normal;
+   font-size: 36px;
+   line-height: 48px;
+   text-indent: 48px;
+   margin: 0;
+}
+
 .jspsych-btn {
   position: absolute;
   border-radius: 50px;
@@ -167,18 +178,30 @@ function exportToCsv(filename, rows) {
     var stimuli_types_EX = ["left", "left", "right", "right"];
 
     // Experiment Instructions
-    var welcome_message = "<images id='instructions' src='images/Instructions.png'>";
+ 
+    var instruct1 = "<div id='instructions'><p><br/>We're now going to play a game with a Little Man on " +
+	    "the screen. But first we are going to learn a few things: </br></br>Always use your index finger " +
+	    "of your dominant hand.</br></br> You will be asked to indicate whether the Little Man is holding " +
+	    "the object in his right or left hand.</br> If the object is on his left hand press left.</br>"+
+       	    "If the object is on his right hand press right.</br></br> This is your home base. You will place your "+ 
+	    "index finger on home base after each response you make. </br></br>You should answer as quickly and "+
+	    "as accurately as possible.</p></div>";
 
-    var instructions = "<div id='instructions'><p>Now you will begin " +
-    	"the actual program.</p><p>Press enter to start.</p>";
+    var instruct2 = "<div id='instructions'><p><br/>Below you can see a drawing of a Little Man.<br/>" +
+	    "The Little Man might be facing you or facing away from you. He might also be up-side down. "+
+	    "Please indicate in which hand the Little Man is holding the object.<br/>" +
+	    "</p><p><center><img src='images/examplepic.png'></center><br/></p></div>";
 
-    var instructions_EX = "<div id='instructions'><p>You will see a " +
-	"series of images that look similar to this:</p><p>" +
-	"<images src='images/1.png'></p><p>Press key '8' " +
-	"if the little man is holding the case left, key '9' if the little man is holding " +
-	"his briefcase in in his right hand. For example, in this case you would press " +
-	"the key '8' (left hand).</p><p>The first four images are practice " + 
-	"Press enter to start.</p>";
+    var instruct3 = "<div id='instructions'><p><br/>Below you can see a drawing of a Little Man.<br/>" +
+	    "The Little Man might be facing you or facing away from you. He might also be up-side down. "+
+	    "Please indicate in which hand the Little Man is holding the object.<br/>" +
+	    "</p><center><img src='images/examplepic.png'></center><p>" +
+	    "<br/>In this case he is holding the object in his right hand.</p></div>";
+
+    var instructMain = "<div id='instructions'><p><br/>Good, you have demonstrated that you understand the instructions and know what to do for this test.<br/></br>" +
+	    "Use the index finger of your dominant hand to press the buttons and then place your finger on Home Base and wait for the next picture.</br></br>"+
+	    "You will now have 32 test trials, just like the practice trials, but you will not be told whether your answer is correct.<br/>" +
+	    "<br/>Remember, you should answer each problem as quickly and as accurately as possible. Are you ready?</p></div>";
 
     var debrief = "<div id='instructions'><p>Thank you for " +
 	    "participating! Press enter to see the data.</p></div>";
@@ -212,8 +235,10 @@ function exportToCsv(filename, rows) {
 	     //attempting a multiple if system
  	type: 'button-response',
 	choices: ['next'],
+	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: 'images/EX 1 C.png',
+	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 1.png'></center>" +
+	    "<p><br/>Correct</p></div>",
 		     
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -234,8 +259,10 @@ function exportToCsv(filename, rows) {
 	//second if should only trigger if previous did not
 	type: 'button-response',
 	choices: ['next'],
+	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: 'images/EX 1 W.png',
+	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 1.png'></center>" +
+	    "<p><br/>Wrong</p></div>",
 		     
 		     data: {is_data_element: false},
 		  }],
@@ -276,8 +303,10 @@ function exportToCsv(filename, rows) {
 	//attempting a multiple if system
 	type: 'button-response',
 	choices: ['next'],
+	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: 'images/EX 2 C.png', 
+	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 2.png'></center>" +
+	    "<p><br/>Correct</p></div>",
 	             
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -298,8 +327,10 @@ function exportToCsv(filename, rows) {
 	//second if should only trigger if previous did not
 	type: 'button-response',
 	choices: ['next'],
+	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: 'images/EX 2 W.png',
+	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 2.png'></center>" +
+	    "<p><br/>Wrong</p></div>",
 		     
 		     data: {is_data_element: false},
 		  }],
@@ -340,8 +371,10 @@ function exportToCsv(filename, rows) {
 	//attempting a multiple if system
 	type: 'button-response',
 	choices: ['next'],
+	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: 'images/EX 3 C.png', 
+	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 3.png'></center>" +
+	    "<p><br/>Correct</p></div>",
 	             
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -362,8 +395,10 @@ function exportToCsv(filename, rows) {
 	//second if should only trigger if previous did not
 	type: 'button-response',
 	choices: ['next'],
+	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: 'images/EX 3 W.png',
+	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 3.png'></center>" +
+	    "<p><br/>Wrong</p></div>",
 		     
 		     data: {is_data_element: false},
 		  }],
@@ -403,8 +438,10 @@ function exportToCsv(filename, rows) {
 	//attempting a multiple if system
 	type: 'button-response',
 	choices: ['next'],
+	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: 'images/EX 4 C.png', 
+	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 4.png'></center>" +
+	    "<p><br/>Correct</p></div>",
 		     
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -425,8 +462,10 @@ function exportToCsv(filename, rows) {
 	//second if should only trigger if previous did not
 	type: 'button-response',
 	choices: ['next'],
+	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: 'images/EX 4 W.png',	
+	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 4.png'></center>" +
+	    "<p><br/>Wrong</p></div>",	
 		     
 		     data: {is_data_element: false},
 		  }],
@@ -453,11 +492,14 @@ function exportToCsv(filename, rows) {
 	
     }
 
+    var omission_message = "<div><p>You have exceeded the maximum response time."+
+	   " Please respond quickly and accurately.<br/><br/><br/>The next image will appear</p></div>";
     // Omission trials after each test stimulus slide
     var omission = {
 	//attempting a multiple if system
 	type: 'single-stim',
-	timeline: [{ stimulus: 'images/omission.png',
+	is_html: true,
+	timeline: [{ stimulus: omission_message,
 		     timing_response: 6000,
 		     on_finish: function(data)
 		     	{jsPsych.data.addDataToLastTrial({is_data_element: false});}
@@ -508,13 +550,11 @@ function exportToCsv(filename, rows) {
 
     // Define second instruction block which uses instruction image
     var second_instruction_block = {
-	  type: 'text',
-	  cont_key: 'mouse',
-	  text: '<center><image src="images/Instructions.png"></center>',
-	  //type: 'button-response',
-	  //choices: ['next'],
+	  is_html: true,
+	  type: 'button-response',
+	  choices: ['next'],
 	  timing_post_trial: 1000,
-	  //stimulus: 'images/Instructions.png',
+	  stimulus: instructMain,
 	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){
 	   	 jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -524,9 +564,9 @@ function exportToCsv(filename, rows) {
     var first_instruction_block = {
 	  type: 'text',
           cont_key: 'mouse',
-	  timeline: [{text: '<center><image src="images/instruction_example.png"></center>'},
-		     {text: '<center><image src="images/instruction2.png"></center>'},
-		     {text: '<center><image src="images/instruction3.png"></center>'}],
+	  timeline: [{text: instruct1},
+		     {text: instruct2},
+		     {text: instruct3}],
 	  timing_post_trial: 0,
 	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){

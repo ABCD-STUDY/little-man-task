@@ -606,23 +606,57 @@ function startExperiment(){
 	      // call from tutorial displays JSON string as final page
    	      // jsPsych.data.displayData();
 
-	      jQuery.post('code/php/events.php', { "data": JSON.stringify(jsPsych.data.getData()), "date": moment().format() }, function(data) {
+	      // make this result code specific to lmt_
+	      ud = makeUnique( jsPsych.data.getData(), 'lmt_' );
+
+	      jQuery.post('code/php/events.php', { "data": JSON.stringify(ud), "date": moment().format() }, function(data) {
                   // did it work?
                   console.log(data);
 		  if (data.ok == 0) {
 		     alert('Error: ' + data.message);
 		  }
                   // export now
-                  exportToCsv("Little-Man-Task_" + Site + "_" + SubjectID + "_" + Session + "_" + moment().format() + ".csv", jsPsych.data.getData());
+                  exportToCsv("Little-Man-Task_" + Site + "_" + SubjectID + "_" + Session + "_" + moment().format() + ".csv", ud);
 
                   // we should remove this as an active session now... 
-	      });
+	      }, 'json');
 
 
 	  }
     });
 
 }
+
+function makeUnique( data, prefix ) {
+    
+    var build, key, destKey, value;
+    
+    build = {};
+    if (typeof data === "object") {
+	if (data instanceof Array) { // don't change the array, only traverse
+	    for (var i = 0; i < data.length; i++) {
+		data[i] = makeUnique(data[i], prefix);
+	    }
+	    return data;
+	} else {
+	    for (key in data) {
+		// Get the destination key
+		destKey = prefix + key;
+
+		// Get the value
+		value = data[key];
+
+		value = makeUnique(value, prefix);
+
+		build[destKey] = value;
+	    }
+	}	
+    } else {
+	return data;
+    }
+
+    return build;
+}
 </script>
-</html>
+    </html>
     

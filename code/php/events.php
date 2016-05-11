@@ -6,7 +6,7 @@
   $user_name = check_logged(); /// function checks if user is logged in
 
   if (!$user_name || $user_name == "") {
-     echo (json_encode ( array( "message" => "no user name" ) ) );
+     echo (json_encode ( array( "message" => "no user name", "ok" => "0" ) ) );
      return; // nothing
   }
 
@@ -24,7 +24,7 @@
      }
   }
   if ($site == "") {
-     echo (json_encode ( array( "message" => "Error: no site assigned to this user" ) ) );
+     echo (json_encode ( array( "message" => "Error: no site assigned to this user", "ok" => 0 ) ) );
      return;
   }
 
@@ -41,11 +41,11 @@
       }      
    }
    if ($subjid == "") {
-     echo(json_encode ( array( "message" => "Error: no subject id assigned" ) ) );
+     echo(json_encode ( array( "message" => "Error: no subject id assigned", "ok" => "0" ) ) );
      return;
    }
    if ($sessionid == "") {
-     echo(json_encode ( array( "message" => "Error: no session specified" ) ) );
+     echo(json_encode ( array( "message" => "Error: no session specified", "ok" => "0" ) ) );
      return;
    }
 
@@ -53,11 +53,11 @@
   $events_file = $_SERVER['DOCUMENT_ROOT']."/applications/little-man-task/data/" . $site . "/lmt_".$subjid."_".$sessionid.".json";
 
   if (file_exists($events_file)) {
-     echo(json_encode ( array( "message" => "Error: this session already exists, overwrite session is not possible" ) ) );
+     echo(json_encode ( array( "message" => "Error: this session already exists, overwrite session is not possible", "ok" => "0" ) ) );
      return;
   }
   
-  $ar = array( "data" => [], "serverDate" => date("Y/m/d"), "serverTime" => date("h:i:sa"), "site" => $site, "subjectid" => $subjid, "session" => $sessionid );
+  $ar = array( "data" => [], "lmt_serverDate" => date("Y/m/d"), "lmt_serverTime" => date("h:i:sa"), "lmt_site" => $site, "lmt_subjectid" => $subjid, "lmt_session" => $sessionid );
   if (isset($_POST['data'])) {
      $ar['data'] = json_decode($_POST['data'], true);
   }

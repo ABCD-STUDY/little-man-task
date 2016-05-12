@@ -48,22 +48,34 @@
      echo(json_encode ( array( "message" => "Error: no session specified", "ok" => "0" ) ) );
      return;
    }
+  $action = "save";
+  if (isset($_POST['action'])) {
+    $action = $_POST['action'];
+  }
 
   // this event will be saved at this location
   $events_file = $_SERVER['DOCUMENT_ROOT']."/applications/little-man-task/data/" . $site . "/lmt_".$subjid."_".$sessionid.".json";
 
-  if (file_exists($events_file)) {
-     echo(json_encode ( array( "message" => "Error: this session already exists, overwrite session is not possible", "ok" => "0" ) ) );
-     return;
+  if ($action == "test") {
+     // test if the current file exists already
+     if (file_exists($events_file)) {
+       echo(json_encode ( array( "message" => "Error: this session already exists, overwrite session is not possible", "ok" => "0" ) ) );
+       return;
+     }
   }
+
+  //if (file_exists($events_file)) {
+  //   echo(json_encode ( array( "message" => "Error: this session already exists, overwrite session is not possible", "ok" => "0" ) ) );
+  //   return;
+  //}
   
   $ar = array( "data" => [], "lmt_serverDate" => date("Y/m/d"), "lmt_serverTime" => date("h:i:sa"), "lmt_site" => $site, "lmt_subjectid" => $subjid, "lmt_session" => $sessionid );
   if (isset($_POST['data'])) {
      $ar['data'] = json_decode($_POST['data'], true);
   }
   if (isset($_POST['date'])) {
-     $ar['assessmentDate'] = $_POST['date'];
+     $ar['lmt_assessmentDate'] = $_POST['date'];
   }
   file_put_contents($events_file, json_encode( $ar, JSON_PRETTY_PRINT ));
-
+  echo(json_encode ( array( "message" => "Saved session", "ok" => "1" ) ) );
 ?>

@@ -577,7 +577,7 @@ function exportToCsv(filename, rows) {
 	  type: 'button-response',
 	  is_html: true,
 	  choices: ['next'],
-	  text: [debrief],
+	  stimulus: debrief,
 	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){
 	   	 jsPsych.data.addDataToLastTrial({is_data_element: false});

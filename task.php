@@ -207,13 +207,12 @@ function exportToCsv(filename, rows) {
 	    "participating! Press enter to see the data.</p></div>";
 
     // line for mouse forward function
-    jQuery('body').on('touchstart', function() { jQuery('#inst').click(); jQuery('#instructions').click(); });
+    //jQuery('body').on('touchstart', function() { jQuery('#inst').click(); jQuery('#instructions').click(); });
 
     var EX_1 = {
 	type: 'button-response',
 	choices: ['left', 'right'],
 	timing_post_trial: 0,
-	button_html: '<button class="jspsych-btn">%choice%</button>',
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 1.png',
 	on_finish: function(data){
@@ -433,8 +432,8 @@ function exportToCsv(filename, rows) {
 	   	jsPsych.data.addDataToLastTrial({correct: correct});
 	}
 
-     }
-     var EX_4_C = {
+    }
+    var EX_4_C = {
 	//attempting a multiple if system
 	type: 'button-response',
 	choices: ['next'],
@@ -492,7 +491,7 @@ function exportToCsv(filename, rows) {
 	
     }
 
-    var omission_message = "<div><p>You have exceeded the maximum response time."+
+    var omission_message = "<div><p></br>You have exceeded the maximum response time."+
 	   " Please respond quickly and accurately.<br/><br/><br/>The next image will appear</p></div>";
     // Omission trials after each test stimulus slide
     var omission = {
@@ -562,11 +561,12 @@ function exportToCsv(filename, rows) {
     };
     // Define first instruction block which uses instruction image
     var first_instruction_block = {
-	  type: 'text',
-          cont_key: 'mouse',
-	  timeline: [{text: instruct1},
-		     {text: instruct2},
-		     {text: instruct3}],
+	  type: 'button-response',
+	  is_html: true,
+	  choices: ['next'],
+	  timeline: [{stimulus: instruct1},
+		     	 {stimulus: instruct2},
+		     	 {stimulus: instruct3}],
 	  timing_post_trial: 0,
 	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){
@@ -574,8 +574,9 @@ function exportToCsv(filename, rows) {
 	  },
     };
     var debrief_block = {
-	  type: "text",
-	  cont_key: 'mouse',
+	  type: 'button-response',
+	  is_html: true,
+	  choices: ['next'],
 	  text: [debrief],
 	  //adding is_data_element label for welcome and instruction messages
 	  on_finish: function(data){

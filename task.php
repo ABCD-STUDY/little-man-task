@@ -16,6 +16,7 @@
 
   $subjid = "";
   $sessionid = "";
+  $run = "";
   if( isset($_SESSION['ABCD']) && isset($_SESSION['ABCD']['little-man-task']) ) {
      if (isset($_SESSION['ABCD']['little-man-task']['subjid'])) {
         $subjid  = $_SESSION['ABCD']['little-man-task']['subjid'];
@@ -23,9 +24,13 @@
      if (isset($_SESSION['ABCD']['little-man-task']['sessionid'])) {
         $sessionid  = $_SESSION['ABCD']['little-man-task']['sessionid'];
      }
+     if (isset($_SESSION['ABCD']['little-man-task']['run'])) {
+        $run  = $_SESSION['ABCD']['little-man-task']['run'];
+     }
   }
   echo('<script type="text/javascript"> SubjectID = "'.$subjid.'"; </script>'."\n");
   echo('<script type="text/javascript"> Session = "'.$sessionid.'"; </script>'."\n");
+  echo('<script type="text/javascript"> Run = "'.$run.'"; </script>'."\n");
 
    $permissions = list_permissions_for_user( $user_name );
 
@@ -91,7 +96,9 @@ p {
   right: 30%;
   
 }
-
+.block-center {
+  width: 100%;
+}
     </style>
   </head>
 
@@ -104,7 +111,7 @@ p {
   <script>
 
 function exportToCsv(filename, rows) {
-    var k = { "SubjectID": 1, "Site": 1, "Session": 1 };
+    var k = { "SubjectID": 1, "Site": 1, "Session": 1, "Run": 1 };
     for (var i = 0; i < rows.length; i++) {
        var k2 = Object.keys(rows[i]);
        for (var j = 0; j < k2.length; j++) {
@@ -118,6 +125,7 @@ function exportToCsv(filename, rows) {
        rows[i]['SubjectID'] = SubjectID;
        rows[i]['Site'] = Site;
        rows[i]['Session'] = Session;
+       rows[i]['Run'] = Run;
        csvFile += k.map(function(a) { return rows[i][a] }).join(",") + "\n";
     }
     
@@ -491,8 +499,9 @@ function exportToCsv(filename, rows) {
 	
     }
 
-    var omission_message = "<div><p></br>You have exceeded the maximum response time."+
-	   " Please respond quickly and accurately.<br/><br/><br/>The next image will appear</p></div>";
+    //var omission_message = "<div><p></br>You have exceeded the maximum response time."+
+    //	   " Please respond quickly and accurately.<br/><br/><br/>The next image will appear</p></div>";
+    var omission_message = "<div><p></br>Sorry, but you have taken too long to respond. Be sure to be as quick, but accurate, as possible.</p></div>";
     // Omission trials after each test stimulus slide
     var omission = {
 	//attempting a multiple if system

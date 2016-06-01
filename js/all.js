@@ -27,12 +27,14 @@ function checkConnectionStatus() {
 
 
 function storeSubjectAndName() {
-    var subject = jQuery('#session-participant').val().replace(/\s/g, '');
-    var session = jQuery('#session-name').val().replace(/\s/g, '');
+    var subject = jQuery('#participant-names-from-redcap').val().replace(/\s/g, '');
+    var session = jQuery('#sessions-from-redcap').val().replace(/\s/g, '');
+    var run     = jQuery('#sessions-run').val();
     jQuery('#session-participant').val(subject);
     jQuery('#session-name').val(session);
     jQuery('.subject-id').text("Subject ID: " + subject);
     jQuery('.session-id').text("Session: " + session);
+    jQuery('.session-run').text("Run: " + run);
     
     if (subject.length > 0 && session.length > 0) {
 	jQuery('#session-active').text("Active Session");
@@ -47,19 +49,21 @@ function storeSubjectAndName() {
     var data = {
 	"subjid": subject,
 	"sessionid": session,
+	"run": run,
 	"task": "little-man-task"
     };
     
     jQuery.get('../../code/php/session.php', data, function() {
-	console.log('stored subject and session and act_subst: ' +  subject + ", " + session );
+	console.log('stored subject, session and run: ' +  subject + ", " + session + ", " + run );
     });
 }
 
 // forget about the current session
 function closeSession() {
     // just set to empty strings and submit
-    jQuery('#session-participant').val("");
-    jQuery('#session-name').val("");
+    jQuery('#participants-from-redcap').val(0);
+    jQuery('#sessions-from-redcap').val(1);
+    jQuery('#session-run').val("01");
     storeSubjectAndName();
 }
 
@@ -107,22 +111,57 @@ function exportToCsv(filename, rows) {
     }
 }
 
+// get valid session names
+function getSessionNamesFromREDCap() {
+    jQuery.getJSON('/code/php/getRCEvents.php', function(data) {
+	for (var i = 0; i < data.length; i++) {
+	    val = "";
+	    if (i == 1) {
+		val = "selected=\"selected\"";
+	    }
+	    jQuery('#sessions-from-redcap').append("<option " + val + " value=\"" + data[i].unique_event_name + "\">" + data[i].event_name + "</option>");
+	}
+	getParticipantNamesFromREDCap();
+	//storeSubjectAndName();
+    });
+}
+
+function getParticipantNamesFromREDCap() {
+    jQuery.getJSON('/code/php/getParticipantNamesFromREDCap.php', function(data) {
+	for (var i = 0; i < data.length; i++) {
+	    jQuery('#participant-names-from-redcap').append("<option value=\"" + data[i] + "\">" + data[i] + "</option>");
+	}
+	storeSubjectAndName();
+    });
+}
+
+
 jQuery(document).ready(function() {
+
+    getSessionNamesFromREDCap();
     
     // add the session variables to the interface
     jQuery('#user_name').text("User: " + user_name);
     jQuery('#session-participant').val(subjid);
     jQuery('#session-name').val(session);
-    
-    storeSubjectAndName();
+    jQuery('#run').val(run);
     
     checkConnectionStatus();
     // Disable for now: setInterval( checkConnectionStatus, 5000 );
     
-    jQuery('#session-participant').change(function() {
+    /*jQuery('#session-participant').change(function() {
 	storeSubjectAndName();
     });
     jQuery('#session-name').change(function() {
+	storeSubjectAndName();
+	}); */
+    jQuery('#participant-names-from-redcap').change(function() {
+	storeSubjectAndName();
+    });
+    jQuery('#sessions-from-redcap').change(function() {
+	storeSubjectAndName();
+    });
+    jQuery('#sessions-run').change(function() {
 	storeSubjectAndName();
     });
     

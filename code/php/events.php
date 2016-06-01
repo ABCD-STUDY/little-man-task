@@ -39,6 +39,9 @@
       if (isset($_SESSION['ABCD']['little-man-task']['sessionid'])) {
          $sessionid  = $_SESSION['ABCD']['little-man-task']['sessionid'];
       }      
+      if (isset($_SESSION['ABCD']['little-man-task']['run'])) {
+         $run  = $_SESSION['ABCD']['little-man-task']['run'];
+      }      
    }
    if ($subjid == "") {
      echo(json_encode ( array( "message" => "Error: no subject id assigned", "ok" => "0" ) ) );
@@ -48,13 +51,17 @@
      echo(json_encode ( array( "message" => "Error: no session specified", "ok" => "0" ) ) );
      return;
    }
+   if ($run == "") {
+     echo(json_encode ( array( "message" => "Error: no run specified", "ok" => "0" ) ) );
+     return;
+   }
   $action = "save";
   if (isset($_POST['action'])) {
     $action = $_POST['action'];
   }
 
   // this event will be saved at this location
-  $events_file = $_SERVER['DOCUMENT_ROOT']."/applications/little-man-task/data/" . $site . "/lmt_".$subjid."_".$sessionid.".json";
+  $events_file = $_SERVER['DOCUMENT_ROOT']."/applications/little-man-task/data/" . $site . "/lmt_".$subjid."_".$sessionid."_".$run.".json";
 
   if ($action == "test") {
      // test if the current file exists already
@@ -68,7 +75,13 @@
   //   echo(json_encode ( array( "message" => "Error: this session already exists, overwrite session is not possible", "ok" => "0" ) ) );
   //   return;
   //}
-  
+
+  // let's make sure the directory actually exists already
+  $dd = $_SERVER['DOCUMENT_ROOT']."/applications/little-man-task/data/" . $site;
+  if (! file_exists($dd)) {
+     mkdir($dd,0777); // this will only work if the data directory is writable
+  }
+
   $ar = array( "data" => [], "lmt_serverDate" => date("Y/m/d"), "lmt_serverTime" => date("h:i:sa"), "lmt_site" => $site, "lmt_subjectid" => $subjid, "lmt_session" => $sessionid );
   if (isset($_POST['data'])) {
      $ar['data'] = json_decode($_POST['data'], true);

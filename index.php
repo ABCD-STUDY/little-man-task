@@ -9,7 +9,9 @@
     // user is not logged in
     return;
   } else {
-    $admin = true;
+    if (user_name == "admin") {
+      $admin = true;
+    }
     echo('<script type="text/javascript"> user_name = "'.$user_name.'"; </script>'."\n");
     echo('<script type="text/javascript"> admin = '.($admin?"true":"false").'; </script>'."\n");
   }
@@ -35,6 +37,7 @@
   // if there is a running session it would have the follow information
   $subjid = "";
   $sessionid = "";
+  $run = "";
   if( isset($_SESSION['ABCD']) && isset($_SESSION['ABCD']['little-man-task']) ) {
      if (isset($_SESSION['ABCD']['little-man-task']['subjid'])) {
         $subjid  = $_SESSION['ABCD']['little-man-task']['subjid'];
@@ -42,11 +45,15 @@
      if (isset($_SESSION['ABCD']['little-man-task']['sessionid'])) {
         $sessionid  = $_SESSION['ABCD']['little-man-task']['sessionid'];
      }
+     if (isset($_SESSION['ABCD']['little-man-task']['run'])) {
+        $run  = $_SESSION['ABCD']['little-man-task']['run'];
+     }
   }
 
-  echo('<script type="text/javascript"> subjid = "'.$subjid.'"; </script>'."\n");
+  echo('<script type="text/javascript"> subjid  = "'.$subjid.'"; </script>'."\n");
   echo('<script type="text/javascript"> session = "'.$sessionid.'"; </script>'."\n");
-  echo('<script type="text/javascript"> site = "'.$site.'"; </script>'."\n");
+  echo('<script type="text/javascript"> run     = "'.$run.'"; </script>'."\n");
+  echo('<script type="text/javascript"> site    = "'.$site.'"; </script>'."\n");
 ?>
 
 <!DOCTYPE html>
@@ -176,17 +183,32 @@
               <form name="sentMessage" id="sessionInfoForm" novalidate>
                 <div class="col-md-6">
 
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <label for="session-participant" class="control-label">Participant</label>
                     <input type="text" class="form-control" placeholder="NDAR-#####" id="session-participant" required data-validation-required-message="Please enter the participant NDAR ID.">
                     <p class="help-block text-danger"></p>
+                  </div> -->
+
+		  <div class="form-group">
+                    <label for="participant-names-from-redcap" class="control-label">Select a participant (screened, from your DAG)</label>
+		    <select class="form-control" id="participant-names-from-redcap"></select>
+                  </div>
+
+		  <div class="form-group">
+                    <label for="session-name" class="control-label">Select an existing session</label>
+		    <select class="form-control" id="sessions-from-redcap"></select>		  
                   </div>
 
                   <div class="form-group">
-                    <label for="session-name" class="control-label">Session name</label>
-                    <input type="text" class="form-control" placeholder="Baseline-01" id="session-name" required data-validation-required-message="Please enter the session ID.">
+                    <label for="session-run" class="control-label">Session run</label>
+		    <select class="form-control" id="sessions-run">
+		      <option value="01">01</option>
+		      <option value="02">02</option>
+		      <option value="03">03</option>
+		    </select>		  
                     <p class="help-block text-danger"></p>
                   </div>
+
 
                   <div class="form-group">
                     <label for="session-date" class="control-label">Session Date</label>
@@ -209,7 +231,9 @@
             <div class="modal-body">
               <div>
                 <button id="open-lmt-button" type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-save"></i> Start Little-Man-Task (touch)</button> &nbsp;
+<?php if ($admin): ?>
                 <button id="open-lmt2-button" type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-save"></i> Start Little-Man-Task (keyboard left: '8', right: '9')</button> &nbsp;
+<?php endif; ?>
                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Back</button>&nbsp;
               </div>
             </div><!-- /.modal-body -->

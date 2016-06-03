@@ -190,8 +190,8 @@ function exportToCsv(filename, rows) {
     var instruct1 = "<div id='instructions'><p><br/>We're now going to play a game with a Little Man on " +
 	    "the screen. But first we are going to learn a few things: </br></br>Always use your index finger " +
 	    "of your dominant hand.</br></br> You will be asked to indicate whether the Little Man is holding " +
-	    "the object in his right or left hand.</br> If the object is on his left hand press left.</br>"+
-       	    "If the object is on his right hand press right.</br></br> This is your home base. You will place your "+ 
+	    "the object in his right or left hand.</br> If the object is in his left hand press left.</br>"+
+       	    "If the object is in his right hand press right.</br></br> This is your home base. You will place your "+ 
 	    "index finger on home base after each response you make. </br></br>You should answer as quickly and "+
 	    "as accurately as possible.</p></div>";
 

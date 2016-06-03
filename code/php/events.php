@@ -32,6 +32,7 @@
    $subjid = "";
    $sessionid = "";
    $active_substances = array();
+   $run = "";
    if ( isset($_SESSION['ABCD']) && isset($_SESSION['ABCD']['little-man-task']) ) {
       if (isset($_SESSION['ABCD']['little-man-task']['subjid'])) {  
          $subjid  = $_SESSION['ABCD']['little-man-task']['subjid'];
@@ -82,12 +83,19 @@
      mkdir($dd,0777); // this will only work if the data directory is writable
   }
 
-  $ar = array( "data" => [], "lmt_serverDate" => date("Y/m/d"), "lmt_serverTime" => date("h:i:sa"), "lmt_site" => $site, "lmt_subjectid" => $subjid, "lmt_session" => $sessionid );
+  $ar = array( "data" => [],
+      	       "lmt_serverdate" => date("Y/m/d"),
+	       "lmt_servertime" => date("h:i:sa"),
+	       "lmt_site" => $site,
+	       "lmt_event_name" => $sessionid,    // have this appear on the instrument as well
+	       "lmt_subject_id" => $subjid,
+	       "subject_id" => $subjid,
+	       "redcap_event_name" => $sessionid);
   if (isset($_POST['data'])) {
      $ar['data'] = json_decode($_POST['data'], true);
   }
   if (isset($_POST['date'])) {
-     $ar['lmt_assessmentDate'] = $_POST['date'];
+     $ar['lmt_assessmentdate'] = $_POST['date'];
   }
   file_put_contents($events_file, json_encode( $ar, JSON_PRETTY_PRINT ));
   echo(json_encode ( array( "message" => "Saved session", "ok" => "1" ) ) );

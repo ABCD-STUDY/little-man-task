@@ -211,8 +211,7 @@ function exportToCsv(filename, rows) {
 	    "You will now have 32 test trials, just like the practice trials, but you will not be told whether your answer is correct.<br/>" +
 	    "<br/>Remember, you should answer each problem as quickly and as accurately as possible. Are you ready?</p></div>";
 
-    var debrief = "<div id='instructions'><p>Thank you for " +
-	    "participating! Press enter to see the data.</p></div>";
+    var debrief = "<div id='instructions'><p>Thank you!</p></div>";
 
     // line for mouse forward function
     //jQuery('body').on('touchstart', function() { jQuery('#inst').click(); jQuery('#instructions').click(); });

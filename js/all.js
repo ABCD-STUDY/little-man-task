@@ -34,7 +34,7 @@ function storeSubjectAndName() {
     jQuery('#session-name').val(session);
     jQuery('.subject-id').text("Subject ID: " + subject);
     jQuery('.session-id').text("Session: " + session);
-    jQuery('.session-run').text("Run: " + run);
+    jQuery('.run-id').text("Run: " + run);
     
     if (subject.length > 0 && session.length > 0) {
 	jQuery('#session-active').text("Active Session");

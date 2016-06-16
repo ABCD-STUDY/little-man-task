@@ -70,6 +70,11 @@
        echo(json_encode ( array( "message" => "Error: this session already exists, overwrite session is not possible", "ok" => "0" ) ) );
        return;
      }
+     echo(json_encode ( array( "message" => "ok to save", "ok" => "1" ) ) );
+     return;
+  } else if ( $action == "mark" ) {
+     // for now ignore these
+     return;
   }
 
   //if (file_exists($events_file)) {
@@ -84,18 +89,24 @@
   }
 
   $ar = array( "data" => [],
-      	       "lmt_serverdate" => date("Y/m/d"),
-	       "lmt_servertime" => date("h:i:sa"),
+      	       "lmt_server_date" => date("Y/m/d"),
+	       "lmt_server_time" => date("h:i:sa"),
 	       "lmt_site" => $site,
 	       "lmt_event_name" => $sessionid,    // have this appear on the instrument as well
 	       "lmt_subject_id" => $subjid,
-	       "subject_id" => $subjid,
+	       "lmt_run" => $run,
+	       "record_id" => $subjid,
 	       "redcap_event_name" => $sessionid);
+  if (isset($_POST['toplevel'])) {
+       foreach($_POST['toplevel'] as $key => $value) {
+   	  $ar[$key] = $value;
+       }
+  }
   if (isset($_POST['data'])) {
      $ar['data'] = json_decode($_POST['data'], true);
   }
   if (isset($_POST['date'])) {
-     $ar['lmt_assessmentdate'] = $_POST['date'];
+     $ar['lmt_assessment_date'] = $_POST['date'];
   }
   file_put_contents($events_file, json_encode( $ar, JSON_PRETTY_PRINT ));
   echo(json_encode ( array( "message" => "Saved session", "ok" => "1" ) ) );

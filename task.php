@@ -614,11 +614,13 @@ function startExperiment(){
 	  on_finish: function(data) {
 	      // call from tutorial displays JSON string as final page
    	      // jsPsych.data.displayData();
+	      var d = {};
+	      d.lmt_user = user_name;
 
 	      // make this result code specific to lmt_
 	      ud = makeUnique( jsPsych.data.getData(), 'lmt_' );
 
-	      jQuery.post('code/php/events.php', { "data": JSON.stringify(ud), "date": moment().format() }, function(data) {
+	      jQuery.post('code/php/events.php', { "data": JSON.stringify(ud), "date": moment().format(), "toplevel": d }, function(data) {
                   // did it work?
                   console.log(data);
 		  if (data.ok == 0) {

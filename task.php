@@ -570,7 +570,6 @@ function exportToCsv(filename, rows) {
     // Define first instruction block which uses instruction image
     var first_instruction_block = {
 	  type: 'button-response',
-	  button-html: '<button style="margin-left:135px" class="jspsych-btn">%choice%</button>'
 	  is_html: true,
 	  choices: ['next'],
 	  timeline: [{stimulus: instruct1},

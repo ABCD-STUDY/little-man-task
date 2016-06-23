@@ -240,6 +240,7 @@ function exportToCsv(filename, rows) {
      var EX_1_C = {
 	     //attempting a multiple if system
  	type: 'button-response',
+	  button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
 	choices: ['next'],
 	is_html: true,
 	timing_post_trial: 0,
@@ -264,6 +265,7 @@ function exportToCsv(filename, rows) {
     var EX_1_W = {
 	//second if should only trigger if previous did not
 	type: 'button-response',
+	  button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
 	choices: ['next'],
 	is_html: true,
 	timing_post_trial: 0,
@@ -308,6 +310,7 @@ function exportToCsv(filename, rows) {
      var EX_2_C = {
 	//attempting a multiple if system
 	type: 'button-response',
+	  button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
 	choices: ['next'],
 	is_html: true,
 	timing_post_trial: 0,
@@ -333,6 +336,7 @@ function exportToCsv(filename, rows) {
 	//second if should only trigger if previous did not
 	type: 'button-response',
 	choices: ['next'],
+	  button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
 	is_html: true,
 	timing_post_trial: 0,
 	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 2.png'></center>" +
@@ -376,6 +380,7 @@ function exportToCsv(filename, rows) {
      var EX_3_C = {
 	//attempting a multiple if system
 	type: 'button-response',
+	button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
 	choices: ['next'],
 	is_html: true,
 	timing_post_trial: 0,
@@ -401,6 +406,7 @@ function exportToCsv(filename, rows) {
 	//second if should only trigger if previous did not
 	type: 'button-response',
 	choices: ['next'],
+	button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
 	is_html: true,
 	timing_post_trial: 0,
 	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 3.png'></center>" +
@@ -444,6 +450,7 @@ function exportToCsv(filename, rows) {
 	//attempting a multiple if system
 	type: 'button-response',
 	choices: ['next'],
+	button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
 	is_html: true,
 	timing_post_trial: 0,
 	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 4.png'></center>" +
@@ -468,6 +475,7 @@ function exportToCsv(filename, rows) {
 	//second if should only trigger if previous did not
 	type: 'button-response',
 	choices: ['next'],
+	button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
 	is_html: true,
 	timing_post_trial: 0,
 	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 4.png'></center>" +
@@ -559,6 +567,7 @@ function exportToCsv(filename, rows) {
     var second_instruction_block = {
 	  is_html: true,
 	  type: 'button-response',
+	  button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
 	  choices: ['next'],
 	  timing_post_trial: 1000,
 	  stimulus: instructMain,
@@ -570,6 +579,7 @@ function exportToCsv(filename, rows) {
     // Define first instruction block which uses instruction image
     var first_instruction_block = {
 	  type: 'button-response',
+	  button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
 	  is_html: true,
 	  choices: ['next'],
 	  timeline: [{stimulus: instruct1},
@@ -584,6 +594,7 @@ function exportToCsv(filename, rows) {
     var debrief_block = {
 	  type: 'button-response',
 	  is_html: true,
+	  button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
 	  choices: ['next'],
 	  stimulus: debrief,
 	  //adding is_data_element label for welcome and instruction messages

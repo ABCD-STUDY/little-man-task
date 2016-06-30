@@ -109,7 +109,7 @@ p {
   </body>
 
   <script>
-
+document.ontouchmove = function(e){ e.preventDefault(); }
 function exportToCsv(filename, rows) {
     var k = { "SubjectID": 1, "Site": 1, "Session": 1, "Run": 1 };
     for (var i = 0; i < rows.length; i++) {

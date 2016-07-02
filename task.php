@@ -244,7 +244,7 @@ function exportToCsv(filename, rows) {
 	choices: ['next'],
 	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 1.png'></center>" +
+	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 1.png' width='800px'></center>" +
 	    "<p><br/>Correct</p></div>",
 		     
 		     on_finish: function(data){
@@ -269,7 +269,7 @@ function exportToCsv(filename, rows) {
 	choices: ['next'],
 	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 1.png'></center>" +
+	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 1.png' width='800px'></center>" +
 	    "<p><br/>Wrong</p></div>",
 		     
 		     data: {is_data_element: false},
@@ -314,7 +314,7 @@ function exportToCsv(filename, rows) {
 	choices: ['next'],
 	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 2.png'></center>" +
+	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 2.png' width='800px'></center>" +
 	    "<p><br/>Correct</p></div>",
 	             
 		     on_finish: function(data){
@@ -339,7 +339,7 @@ function exportToCsv(filename, rows) {
 	  button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
 	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 2.png'></center>" +
+	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 2.png' width='800px'></center>" +
 	    "<p><br/>Wrong</p></div>",
 		     
 		     data: {is_data_element: false},
@@ -384,7 +384,7 @@ function exportToCsv(filename, rows) {
 	choices: ['next'],
 	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 3.png'></center>" +
+	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 3.png' width='800px'></center>" +
 	    "<p><br/>Correct</p></div>",
 	             
 		     on_finish: function(data){
@@ -409,7 +409,7 @@ function exportToCsv(filename, rows) {
 	button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
 	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 3.png'></center>" +
+	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 3.png' width='800px'></center>" +
 	    "<p><br/>Wrong</p></div>",
 		     
 		     data: {is_data_element: false},
@@ -453,7 +453,7 @@ function exportToCsv(filename, rows) {
 	button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
 	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 4.png'></center>" +
+	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 4.png' width='800px'></center>" +
 	    "<p><br/>Correct</p></div>",
 		     
 		     on_finish: function(data){
@@ -478,7 +478,7 @@ function exportToCsv(filename, rows) {
 	button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
 	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 4.png'></center>" +
+	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 4.png' width='800px'></center>" +
 	    "<p><br/>Wrong</p></div>",	
 		     
 		     data: {is_data_element: false},

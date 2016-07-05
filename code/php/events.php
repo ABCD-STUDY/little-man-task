@@ -95,7 +95,7 @@
 	       "lmt_event_name" => $sessionid,    // have this appear on the instrument as well
 	       "lmt_subject_id" => $subjid,
 	       "lmt_run" => $run,
-	       "record_id" => $subjid,
+	       "id_redcap" => $subjid,
 	       "redcap_event_name" => $sessionid);
   if (isset($_POST['toplevel'])) {
        foreach($_POST['toplevel'] as $key => $value) {

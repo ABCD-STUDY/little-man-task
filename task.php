@@ -223,8 +223,8 @@ function exportToCsv(filename, rows) {
 
     var EX_1 = {
 	type: 'button-response',
-	choices: ['<center><div style="padding-top: 20px;"><img src="images/left.png"></div></center>',
-'<center><div style="padding-top: 20px;"><img src="images/right.png"></div></center>'],
+	choices: ['<center><div><img src="images/left.png"></div></center>',
+'<center><div><img src="images/right.png"></div></center>'],
 	timing_post_trial: 0,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 1.png',
@@ -294,7 +294,8 @@ function exportToCsv(filename, rows) {
     }
     var EX_2 = {
 	type: 'button-response',
-	choices: ['left', 'right'],
+	choices: ['<center><div><img src="images/left.png"></div></center>',
+'<center><div><img src="images/right.png"></div></center>'],
 	timing_post_trial: 0,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 2.png',
@@ -364,7 +365,8 @@ function exportToCsv(filename, rows) {
     }
     var EX_3 = {
 	type: 'button-response',
-	choices: ['left', 'right'],
+	choices: ['<center><div><img src="images/left.png"></div></center>',
+'<center><div><img src="images/right.png"></div></center>'],
 	timing_post_trial: 0,
 	data: {stimulus_type: 'right'},
 	stimulus: 'images/EX 3.png',
@@ -433,7 +435,8 @@ function exportToCsv(filename, rows) {
     }
     var EX_4 = {
 	type: 'button-response',
-	choices: ['left', 'right'],
+	choices: ['<center><div><img src="images/left.png"></div></center>',
+'<center><div><img src="images/right.png"></div></center>'],
 	timing_post_trial: 0,
 	data: {stimulus_type: 'right'},
 	stimulus: 'images/EX 4.png',
@@ -552,7 +555,8 @@ function exportToCsv(filename, rows) {
     //main test trials are defined by this trial object. 
     var test_block_main = {
 	type: 'button-response',
-	choices: ['left', 'right'],
+	choices: ['<center><div><img src="images/left.png"></div></center>',
+'<center><div><img src="images/right.png"></div></center>'],
 	timing_post_trial: post_trial_gap,
 	timeline: test_trial_array,
     	//added a function to record correct or not

@@ -109,7 +109,12 @@ p {
   </body>
 
   <script>
-document.ontouchmove = function(e){ e.preventDefault(); }
+document.ontouchmove = function(e){ 
+	var target = e.currentTarget;
+	alert(target);
+	target.click();
+	e.preventDefault(); 
+}
 function exportToCsv(filename, rows) {
     var k = { "SubjectID": 1, "Site": 1, "Session": 1, "Run": 1 };
     for (var i = 0; i < rows.length; i++) {
@@ -178,7 +183,7 @@ function exportToCsv(filename, rows) {
     var correct_wrong = ["images/EX 1 C.png", "images/EX 2 C.png", "images/EX 3 C.png", "images/EX 4 C.png",
 	   		 "images/EX 1 W.png", "images/EX 2 W.png", "images/EX 3 W.png", "images/EX 4 W.png",
 			 "images/instruction3.png", "images/instruction2.png","images/instruction_example.png",
-		 	 "images/Instructions.png", "images/omission.png"];
+		 	 "images/Instructions.png", "images/omission.png", "images/left.png", "images/right.png"];
 
     // Example slides
     var stimuli_EX =["images/EX 1.png", "images/EX 2.png", "images/EX 3.png", "images/EX 4.png"];
@@ -218,7 +223,8 @@ function exportToCsv(filename, rows) {
 
     var EX_1 = {
 	type: 'button-response',
-	choices: ['left', 'right'],
+	choices: ['<center><div style="padding-top: 20px;"><img src="images/left.png"></div></center>',
+'<center><div style="padding-top: 20px;"><img src="images/right.png"></div></center>'],
 	timing_post_trial: 0,
 	data: {stimulus_type: 'left'},
 	stimulus: 'images/EX 1.png',

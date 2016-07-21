@@ -210,7 +210,7 @@ function exportToCsv(filename, rows) {
 	    "You will now have 32 test trials, just like the practice trials, but you will not be told whether your answer is correct.<br/>" +
 	    "<br/>Remember, you should answer each problem as quickly and as accurately as possible. Are you ready?</p></div>";
 
-    var debrief = "<div id='instructions'><p>Thank you!</p></div>";
+    var debrief = "<div id='instructions'><p>Great job, let's try another task!</p></div>";
 
     // line for mouse forward function
     //jQuery('body').on('touchstart', function() { jQuery('#inst').click(); jQuery('#instructions').click(); });
@@ -221,7 +221,8 @@ function exportToCsv(filename, rows) {
 '<center><div><img src="images/right.png"></div></center>'],
 	timing_post_trial: 0,
 	data: {stimulus_type: 'left'},
-	stimulus: 'images/EX 1.png',
+	is_html: true,
+	stimulus: "<div id='instructions'><p>The Little Man shown on the screen has an object in one of his hands.</p><br/><center><img src='images/EX 1.png' width='800px'></center>"+"<p><br/>Use the index finger of your dominant hand to press the buttons and then place your finger on Home Base</p></div>",
 	on_finish: function(data){
 		//label data as example
 		jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -245,7 +246,7 @@ function exportToCsv(filename, rows) {
 	is_html: true,
 	timing_post_trial: 0,
 	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 1.png' width='800px'></center>" +
-	    "<p><br/>Correct</p></div>",
+	    "<p><br/>Very good. You must always look very carefully at the Little Man, because sometimes he will be standing upright facing you, but sometimes he will be standing on his head and sometimes he will be facing away from you. Now press the key to indicate that the object is in the Little Man’s left hand. The computer will tell you are correct and will give you a few practice problems.</p></div>",
 		     
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -270,7 +271,7 @@ function exportToCsv(filename, rows) {
 	is_html: true,
 	timing_post_trial: 0,
 	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 1.png' width='800px'></center>" +
-	    "<p><br/>Wrong</p></div>",
+	    "<p><br/>You must answer according to which of the Little Man’s hands the object is in. You must imagine you are the Little Man to decide. Do you understand?</p></div>",
 		     
 		     data: {is_data_element: false},
 		  }],
@@ -316,7 +317,7 @@ function exportToCsv(filename, rows) {
 	is_html: true,
 	timing_post_trial: 0,
 	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 2.png' width='800px'></center>" +
-	    "<p><br/>Correct</p></div>",
+	    "<p><br/>Very Good</p></div>",
 	             
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -341,7 +342,7 @@ function exportToCsv(filename, rows) {
 	is_html: true,
 	timing_post_trial: 0,
 	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 2.png' width='800px'></center>" +
-	    "<p><br/>Wrong</p></div>",
+	    "<p><br/>You must answer according to which of the Little Man’s hands the object is in. You must imagine you are the Little Man to decide. Do you understand?</p></div>",
 		     
 		     data: {is_data_element: false},
 		  }],
@@ -387,7 +388,7 @@ function exportToCsv(filename, rows) {
 	is_html: true,
 	timing_post_trial: 0,
 	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 3.png' width='800px'></center>" +
-	    "<p><br/>Correct</p></div>",
+	    "<p><br/>Very Good</p></div>",
 	             
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -412,7 +413,7 @@ function exportToCsv(filename, rows) {
 	is_html: true,
 	timing_post_trial: 0,
 	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 3.png' width='800px'></center>" +
-	    "<p><br/>Wrong</p></div>",
+	    "<p><br/>You must answer according to which of the Little Man’s hands the object is in. You must imagine you are the Little Man to decide. Do you understand?</p></div>",
 		     
 		     data: {is_data_element: false},
 		  }],
@@ -457,7 +458,7 @@ function exportToCsv(filename, rows) {
 	is_html: true,
 	timing_post_trial: 0,
 	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 4.png' width='800px'></center>" +
-	    "<p><br/>Correct</p></div>",
+	    "<p><br/>Very Good</p></div>",
 		     
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -482,7 +483,7 @@ function exportToCsv(filename, rows) {
 	is_html: true,
 	timing_post_trial: 0,
 	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 4.png' width='800px'></center>" +
-	    "<p><br/>Wrong</p></div>",	
+	    "<p><br/>You must answer according to which of the Little Man’s hands the object is in. You must imagine you are the Little Man to decide. Do you understand?</p></div>",	
 		     
 		     data: {is_data_element: false},
 		  }],

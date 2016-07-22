@@ -222,7 +222,7 @@ function exportToCsv(filename, rows) {
 	timing_post_trial: 0,
 	data: {stimulus_type: 'left'},
 	is_html: true,
-	stimulus: "<div id='instructions'><p>The Little Man shown on the screen has an object in one of his hands.</p><br/><center><img src='images/EX 1.png' width='800px'></center>"+"<p><br/>Use the index finger of your dominant hand to press the buttons and then place your finger on Home Base</p></div>",
+	stimulus: "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p><br/><center><img src='images/EX 1.png' width='800px'></center>"+"<p><br/>Use the index finger of your dominant hand to press the buttons and then place your finger on Home Base</p></div>",
 	on_finish: function(data){
 		//label data as example
 		jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -648,8 +648,9 @@ function startExperiment(){
                   // we should remove this as an active session now... 
 	      }, 'json');
 
-
+ 		document.body.innerHTML = '<form action="https://abcd-report.ucsd.edu/"><button type="submit">Return to Homepage</button></form>';
 	  }
+
     });
 
 }

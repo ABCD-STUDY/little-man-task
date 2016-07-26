@@ -222,7 +222,7 @@ function exportToCsv(filename, rows) {
 	timing_post_trial: 0,
 	data: {stimulus_type: 'left'},
 	is_html: true,
-	stimulus: "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p><br/><center><img src='images/EX 1.png' width='800px'></center>"+"<p><br/>Use the index finger of your dominant hand to press the buttons and then place your finger on Home Base</p></div>",
+	stimulus: "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p><br/><center><img src='images/EX 1.png' width='800px'></center></div>",
 	on_finish: function(data){
 		//label data as example
 		jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -271,7 +271,7 @@ function exportToCsv(filename, rows) {
 	is_html: true,
 	timing_post_trial: 0,
 	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 1.png' width='800px'></center>" +
-	    "<p><br/>You must answer according to which of the Little Man’s hands the object is in. You must imagine you are the Little Man to decide. Do you understand?</p></div>",
+	    "<p><br/>That answer was wrong. You must answer according to which of the Little Man’s hands the object is in. You must imagine you are the Little Man to decide. Do you understand?</p></div>",
 		     
 		     data: {is_data_element: false},
 		  }],
@@ -342,7 +342,7 @@ function exportToCsv(filename, rows) {
 	is_html: true,
 	timing_post_trial: 0,
 	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 2.png' width='800px'></center>" +
-	    "<p><br/>You must answer according to which of the Little Man’s hands the object is in. You must imagine you are the Little Man to decide. Do you understand?</p></div>",
+	    "<p><br/>That answer was wrong. You must answer according to which of the Little Man’s hands the object is in. You must imagine you are the Little Man to decide. Do you understand?</p></div>",
 		     
 		     data: {is_data_element: false},
 		  }],
@@ -413,7 +413,7 @@ function exportToCsv(filename, rows) {
 	is_html: true,
 	timing_post_trial: 0,
 	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 3.png' width='800px'></center>" +
-	    "<p><br/>You must answer according to which of the Little Man’s hands the object is in. You must imagine you are the Little Man to decide. Do you understand?</p></div>",
+	    "<p><br/>That answer was wrong. You must answer according to which of the Little Man’s hands the object is in. You must imagine you are the Little Man to decide. Do you understand?</p></div>",
 		     
 		     data: {is_data_element: false},
 		  }],
@@ -483,7 +483,7 @@ function exportToCsv(filename, rows) {
 	is_html: true,
 	timing_post_trial: 0,
 	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 4.png' width='800px'></center>" +
-	    "<p><br/>You must answer according to which of the Little Man’s hands the object is in. You must imagine you are the Little Man to decide. Do you understand?</p></div>",	
+	    "<p><br/>That answer was wrong. You must answer according to which of the Little Man’s hands the object is in. You must imagine you are the Little Man to decide. Do you understand?</p></div>",	
 		     
 		     data: {is_data_element: false},
 		  }],
@@ -648,8 +648,7 @@ function startExperiment(){
                   // we should remove this as an active session now... 
 	      }, 'json');
 
- 		document.body.innerHTML = '<form action="https://abcd-report.ucsd.edu/"><button type="submit">Return to Homepage</button></form>';
-	  }
+ 		document.body.innerHTML = '<center><form action="https://abcd-report.ucsd.edu/"><button style="height:200px;width:400px;font-size:48px;border-radius: 15px;" type="submit">Return to ABCD-Report Homepage</button></form></center>';
 
     });
 

@@ -246,7 +246,7 @@ function exportToCsv(filename, rows) {
 	is_html: true,
 	timing_post_trial: 0,
 	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 1.png' width='800px'></center>" +
-	    "<p><br/>Very good. You must always look very carefully at the Little Man, because sometimes he will be standing upright facing you, but sometimes he will be standing on his head and sometimes he will be facing away from you. Now press the key to indicate that the object is in the Little Man’s left hand. The computer will tell you are correct and will give you a few practice problems.</p></div>",
+	    "<p>Very good. You must always look very carefully at the Little Man, because sometimes he will be standing upright facing you, but sometimes he will be standing on his head and sometimes he will be facing away from you. Now press the key to indicate that the object is in the Little Man’s left hand. The computer will tell you are correct and will give you a few practice problems.</p></div>",
 		     
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -512,7 +512,7 @@ function exportToCsv(filename, rows) {
 
     //var omission_message = "<div><p></br>You have exceeded the maximum response time."+
     //	   " Please respond quickly and accurately.<br/><br/><br/>The next image will appear</p></div>";
-    var omission_message = "<div><p></br>Sorry, but you have taken too long to respond. Be sure to be as quick, but accurate, as possible.</p></div>";
+    var omission_message = "<div><p></br>Sorry, you took too long! Remember to be both quick and correct!</p></div>";
     // Omission trials after each test stimulus slide
     var omission = {
 	//attempting a multiple if system

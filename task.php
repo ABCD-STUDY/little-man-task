@@ -181,7 +181,7 @@ function exportToCsv(filename, rows) {
 
     // Example slides
     var stimuli_EX =["images/EX 1.png", "images/EX 2.png", "images/EX 3.png", "images/EX 4.png"];
-
+    // Example types
     var stimuli_types_EX = ["left", "left", "right", "right"];
 
     // Experiment Instructions

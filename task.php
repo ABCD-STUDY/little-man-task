@@ -205,6 +205,12 @@ function exportToCsv(filename, rows) {
 	    "</p><center><img src='images/examplepic.png'></center><p>" +
 	    "<br/>In this case he is holding the object in his right hand.</p></div>";
 
+	var sample_correct = "<div id='instructions'><center><img src='images/EX 1.png' width='800px'></center>" +
+	    "<p>Very good. You must always look very carefully at the Little Man, because sometimes he will be standing upright facing you, but sometimes he will be standing on his head and sometimes he will be facing away from you. The computer will tell you are correct and will give you a few practice problems.</p></div>";
+
+	var sample_wrong = "<div id='instructions'><center><img src='images/EX 1.png' width='800px'></center>" +
+	    "<p><br/>That answer was wrong. You must answer according to which of the Little Man’s hands the object is in. You must imagine you are the Little Man to decide. Do you understand?</p></div>";
+
     var instructMain = "<div id='instructions'><p><br/>Good, you have demonstrated that you understand the instructions and know what to do for this test.<br/></br>" +
 	    "Use the index finger of your dominant hand to press the buttons and then place your finger on Home Base and wait for the next picture.</br></br>"+
 	    "You will now have 32 test trials, just like the practice trials, but you will not be told whether your answer is correct.<br/>" +
@@ -215,7 +221,9 @@ function exportToCsv(filename, rows) {
     // line for mouse forward function
     //jQuery('body').on('touchstart', function() { jQuery('#inst').click(); jQuery('#instructions').click(); });
 
-    var EX_1 = {
+    var sample_finished = false;
+
+    var Sample_1 = {
 	type: 'button-response',
 	choices: ['<center><div><img src="images/left.png"></div></center>',
 '<center><div><img src="images/right.png"></div></center>'],
@@ -237,16 +245,15 @@ function exportToCsv(filename, rows) {
 	   	jsPsych.data.addDataToLastTrial({correct: correct});
 	}
 
-     }
-     var EX_1_C = {
+    }
+    var Sample_1_C = {
 	     //attempting a multiple if system
  	type: 'button-response',
 	  button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
 	choices: ['next'],
 	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 1.png' width='800px'></center>" +
-	    "<p>Very good. You must always look very carefully at the Little Man, because sometimes he will be standing upright facing you, but sometimes he will be standing on his head and sometimes he will be facing away from you. Now press the key to indicate that the object is in the Little Man’s left hand. The computer will tell you are correct and will give you a few practice problems.</p></div>",
+	timeline: [{ stimulus: sample_correct,
 		     
 		     on_finish: function(data){
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -258,20 +265,20 @@ function exportToCsv(filename, rows) {
 			if(data.correct == false){
 				return false;
 			} else {
+				sample_finished = true;
 				return true;
 			}
 	}
     }
         
-    var EX_1_W = {
+    var Sample_1_W = {
 	//second if should only trigger if previous did not
 	type: 'button-response',
 	  button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
 	choices: ['next'],
 	is_html: true,
 	timing_post_trial: 0,
-	timeline: [{ stimulus: "<div id='instructions'><center><img src='images/EX 1.png' width='800px'></center>" +
-	    "<p><br/>That answer was wrong. You must answer according to which of the Little Man’s hands the object is in. You must imagine you are the Little Man to decide. Do you understand?</p></div>",
+	timeline: [{ stimulus: sample_wrong,
 		     
 		     data: {is_data_element: false},
 		  }],
@@ -280,6 +287,75 @@ function exportToCsv(filename, rows) {
 	conditional_function: function(){
 		var data = jsPsych.data.getLastTrialData();
 			if(data.skipped == true){
+				return false;
+			} else {
+				return true;
+			}
+	}
+
+    var Sample_2 = {
+	type: 'button-response',
+	choices: ['<center><div><img src="images/left.png"></div></center>',
+'<center><div><img src="images/right.png"></div></center>'],
+	timing_post_trial: 0,
+	data: {stimulus_type: 'left'},
+	is_html: true,
+	stimulus: "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p><br/><center><img src='images/EX 1.png' width='800px'></center></div>",
+	on_finish: function(data){
+		//label data as example
+		jsPsych.data.addDataToLastTrial({is_data_element: false});
+		//labal data as correct or not.
+	    	var correct = false;
+
+	   	if(data.stimulus_type == 'left' && data.button_pressed == 0){
+	      		correct = true;
+	   	} else if(data.stimulus_type == 'right' && data.button_pressed == 1){
+	      		correct = true;
+	  	}
+	   	jsPsych.data.addDataToLastTrial({correct: correct});
+	}
+
+    var Sample_2_C = {
+	     //attempting a multiple if system
+ 	type: 'button-response',
+	  button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
+	choices: ['next'],
+	is_html: true,
+	timing_post_trial: 0,
+	timeline: [{ stimulus: sample_correct,
+		     
+		     on_finish: function(data){
+			jsPsych.data.addDataToLastTrial({is_data_element: false});
+		     	jsPsych.data.addDataToLastTrial({skipped:true});}
+		  }],
+
+	conditional_function: function(){
+		var data = jsPsych.data.getLastTrialData();
+			if(data.correct == false || sample_finished == true){
+				return false;
+			} else {
+				sample_finished = true;
+				return true;
+			}
+	}
+    }
+        
+    var Sample_2_W = {
+	//second if should only trigger if previous did not
+	type: 'button-response',
+	  button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
+	choices: ['next'],
+	is_html: true,
+	timing_post_trial: 0,
+	timeline: [{ stimulus: sample_wrong,
+		     
+		     data: {is_data_element: false},
+		  }],
+
+
+	conditional_function: function(){
+		var data = jsPsych.data.getLastTrialData();
+			if(data.skipped == true || sample_finished == true){
 				return false;
 			} else {
 				return true;
@@ -620,7 +696,8 @@ function startExperiment(){
 	  display_element: $('#jspsych_target'),
 	  //order of experiment includes an example section
 	  timeline: [first_instruction_block,
-	  			 EX_1, EX_1_C, EX_1_W, 
+	  			 Sample_1, Sample_1_C, Sample_1_W,
+	  			 Sample_2, Sample_2_C, Sample_2_W,
 	  			 EX_2, EX_2_C, EX_2_W, 
 	  			 EX_3, EX_3_C, EX_3_W, 
 	  			 EX_4, EX_4_C, EX_4_W, 

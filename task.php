@@ -244,8 +244,8 @@ function exportToCsv(filename, rows) {
 	  	}
 	   	jsPsych.data.addDataToLastTrial({correct: correct});
 	}
-
     }
+
     var Sample_1_C = {
 	     //attempting a multiple if system
  	type: 'button-response',
@@ -292,6 +292,7 @@ function exportToCsv(filename, rows) {
 				return true;
 			}
 	}
+	}
 
     var Sample_2 = {
 	type: 'button-response',
@@ -300,19 +301,27 @@ function exportToCsv(filename, rows) {
 	timing_post_trial: 0,
 	data: {stimulus_type: 'left'},
 	is_html: true,
-	stimulus: "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p><br/><center><img src='images/EX 1.png' width='800px'></center></div>",
-	on_finish: function(data){
-		//label data as example
-		jsPsych.data.addDataToLastTrial({is_data_element: false});
-		//labal data as correct or not.
+	timeline: [{stimulus: "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p><br/><center><img src='images/EX 1.png' width='800px'></center></div>",
+		on_finish: function(data){
+			//label data as example
+			jsPsych.data.addDataToLastTrial({is_data_element: false});
+			//labal data as correct or not.
 	    	var correct = false;
 
-	   	if(data.stimulus_type == 'left' && data.button_pressed == 0){
+	   		if(data.stimulus_type == 'left' && data.button_pressed == 0){
 	      		correct = true;
-	   	} else if(data.stimulus_type == 'right' && data.button_pressed == 1){
+	   		} else if(data.stimulus_type == 'right' && data.button_pressed == 1){
 	      		correct = true;
-	  	}
-	   	jsPsych.data.addDataToLastTrial({correct: correct});
+	  		}
+	   		jsPsych.data.addDataToLastTrial({correct: correct});
+		}],
+	conditional_function: function(){
+		if(sample_finished == true){
+			return false;
+		} else {	
+			return true;
+		}
+	}
 	}
 
     var Sample_2_C = {
@@ -361,8 +370,8 @@ function exportToCsv(filename, rows) {
 				return true;
 			}
 	}
-
     }
+
     var EX_2 = {
 	type: 'button-response',
 	choices: ['<center><div><img src="images/left.png"></div></center>',

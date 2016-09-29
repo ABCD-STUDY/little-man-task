@@ -373,6 +373,164 @@ function exportToCsv(filename, rows) {
 	}
     }
 
+    var Sample_3 = {
+	type: 'button-response',
+	choices: ['<center><div><img src="images/left.png"></div></center>',
+'<center><div><img src="images/right.png"></div></center>'],
+	timing_post_trial: 0,
+	data: {stimulus_type: 'left'},
+	is_html: true,
+	timeline: [{stimulus: "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p><br/><center><img src='images/EX 1.png' width='800px'></center></div>",
+		on_finish: function(data){
+			//label data as example
+			jsPsych.data.addDataToLastTrial({is_data_element: false});
+			//labal data as correct or not.
+	    	var correct = false;
+
+	   		if(data.stimulus_type == 'left' && data.button_pressed == 0){
+	      		correct = true;
+	   		} else if(data.stimulus_type == 'right' && data.button_pressed == 1){
+	      		correct = true;
+	  		}
+	   		jsPsych.data.addDataToLastTrial({correct: correct});
+	   	}
+	}],
+	conditional_function: function(){
+		if(sample_finished == true){
+			return false;
+		} else {	
+			return true;
+		}
+	}
+	}
+
+    var Sample_3_C = {
+	     //attempting a multiple if system
+ 	type: 'button-response',
+	  button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
+	choices: ['next'],
+	is_html: true,
+	timing_post_trial: 0,
+	timeline: [{ stimulus: sample_correct,
+		     
+		     on_finish: function(data){
+			jsPsych.data.addDataToLastTrial({is_data_element: false});
+		     	jsPsych.data.addDataToLastTrial({skipped:true});}
+		  }],
+
+	conditional_function: function(){
+		var data = jsPsych.data.getLastTrialData();
+			if(data.correct == false || sample_finished == true){
+				return false;
+			} else {
+				sample_finished = true;
+				return true;
+			}
+	}
+    }
+        
+    var Sample_3_W = {
+	//second if should only trigger if previous did not
+	type: 'button-response',
+	  button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
+	choices: ['next'],
+	is_html: true,
+	timing_post_trial: 0,
+	timeline: [{ stimulus: sample_wrong,
+		     
+		     data: {is_data_element: false},
+		  }],
+
+
+	conditional_function: function(){
+		var data = jsPsych.data.getLastTrialData();
+			if(data.skipped == true || sample_finished == true){
+				return false;
+			} else {
+				return true;
+			}
+	}
+    }
+
+    var Sample_4 = {
+	type: 'button-response',
+	choices: ['<center><div><img src="images/left.png"></div></center>',
+'<center><div><img src="images/right.png"></div></center>'],
+	timing_post_trial: 0,
+	data: {stimulus_type: 'left'},
+	is_html: true,
+	timeline: [{stimulus: "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p><br/><center><img src='images/EX 1.png' width='800px'></center></div>",
+		on_finish: function(data){
+			//label data as example
+			jsPsych.data.addDataToLastTrial({is_data_element: false});
+			//labal data as correct or not.
+	    	var correct = false;
+
+	   		if(data.stimulus_type == 'left' && data.button_pressed == 0){
+	      		correct = true;
+	   		} else if(data.stimulus_type == 'right' && data.button_pressed == 1){
+	      		correct = true;
+	  		}
+	   		jsPsych.data.addDataToLastTrial({correct: correct});
+	   	}
+	}],
+	conditional_function: function(){
+		if(sample_finished == true){
+			return false;
+		} else {	
+			return true;
+		}
+	}
+	}
+
+    var Sample_4_C = {
+	     //attempting a multiple if system
+ 	type: 'button-response',
+	  button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
+	choices: ['next'],
+	is_html: true,
+	timing_post_trial: 0,
+	timeline: [{ stimulus: sample_correct,
+		     
+		     on_finish: function(data){
+			jsPsych.data.addDataToLastTrial({is_data_element: false});
+		     	jsPsych.data.addDataToLastTrial({skipped:true});}
+		  }],
+
+	conditional_function: function(){
+		var data = jsPsych.data.getLastTrialData();
+			if(data.correct == false || sample_finished == true){
+				return false;
+			} else {
+				sample_finished = true;
+				return true;
+			}
+	}
+    }
+        
+    var Sample_4_W = {
+	//second if should only trigger if previous did not
+	type: 'button-response',
+	  button_html: '<button style="margin-left:150px" class="jspsych-btn jspsych-button-response-button">%choice%</button>',
+	choices: ['next'],
+	is_html: true,
+	timing_post_trial: 0,
+	timeline: [{ stimulus: sample_wrong,
+		     
+		     data: {is_data_element: false},
+		  }],
+
+
+	conditional_function: function(){
+		var data = jsPsych.data.getLastTrialData();
+			if(data.skipped == true || sample_finished == true){
+				return false;
+			} else {
+				return true;
+			}
+	}
+    }
+
     var EX_2 = {
 	type: 'button-response',
 	choices: ['<center><div><img src="images/left.png"></div></center>',
@@ -708,6 +866,8 @@ function startExperiment(){
 	  timeline: [first_instruction_block,
 	  			 Sample_1, Sample_1_C, Sample_1_W,
 	  			 Sample_2, Sample_2_C, Sample_2_W,
+	  			 Sample_3, Sample_3_C, Sample_3_W,
+	  			 Sample_4, Sample_4_C, Sample_4_W,
 	  			 EX_2, EX_2_C, EX_2_W, 
 	  			 EX_3, EX_3_C, EX_3_W, 
 	  			 EX_4, EX_4_C, EX_4_W, 

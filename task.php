@@ -314,7 +314,8 @@ function exportToCsv(filename, rows) {
 	      		correct = true;
 	  		}
 	   		jsPsych.data.addDataToLastTrial({correct: correct});
-		}],
+	   	}
+	}],
 	conditional_function: function(){
 		if(sample_finished == true){
 			return false;

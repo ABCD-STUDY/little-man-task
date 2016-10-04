@@ -205,10 +205,10 @@ function exportToCsv(filename, rows) {
 	    "</p><center><img src='images/examplepic.png'></center><p>" +
 	    "<br/>In this case he is holding the object in his right hand.</p></div>";
 
-	var sample_correct = "<div id='instructions'><center><img src='images/EX 1.png' width='800px'></center>" +
-	    "<p>Very good. You must always look very carefully at the Little Man, because sometimes he will be standing upright facing you, but sometimes he will be standing on his head and sometimes he will be facing away from you. The computer will tell you are correct and will give you a few practice problems.</p></div>";
+	var sample_correct = "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p>" + "<center><img src='images/EX 1.png' width='800px'></center>" +
+	    "<p>Very good. You must always look very carefully at the Little Man, because sometimes he will be standing upright facing you, but sometimes he will be standing on his head and sometimes he will be facing away from you. You will now have a few practice problems. The computer will tell you if you are correct.</p></div>";
 
-	var sample_wrong = "<div id='instructions'><center><img src='images/EX 1.png' width='800px'></center>" +
+	var sample_wrong = "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p>"+"<center><img src='images/EX 1.png' width='800px'></center>" +
 	    "<p><br/>That answer was wrong. You must answer according to which of the Little Man’s hands the object is in. You must imagine you are the Little Man to decide. Do you understand?</p></div>";
 
     var instructMain = "<div id='instructions'><p><br/>Good, you have demonstrated that you understand the instructions and know what to do for this test.<br/></br>" +
@@ -230,7 +230,7 @@ function exportToCsv(filename, rows) {
 	timing_post_trial: 0,
 	data: {stimulus_type: 'left'},
 	is_html: true,
-	stimulus: "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p><br/><center><img src='images/EX 1.png' width='800px'></center></div>",
+	stimulus: "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p><center><img src='images/EX 1.png' width='800px'></center></div>",
 	on_finish: function(data){
 		//label data as example
 		jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -855,6 +855,7 @@ function exportToCsv(filename, rows) {
     //preload all images used
     jsPsych.pluginAPI.preloadImages(stimuli, function(){preloadAll();});
     function preloadAll(){
+    	jsPsych.pluginAPI.preloadImages(stimuli);
     	jsPsych.pluginAPI.preloadImages(correct_wrong);
     	jsPsych.pluginAPI.preloadImages(stimuli_EX, function(){ startExperiment(); });
     }

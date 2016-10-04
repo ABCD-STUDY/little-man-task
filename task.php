@@ -211,6 +211,8 @@ function exportToCsv(filename, rows) {
 	var sample_wrong = "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p>"+"<center><img src='images/EX 1.png' width='800px'></center>" +
 	    "<p><br/>That answer was wrong. You must answer according to which of the Little Man’s hands the object is in. You must imagine you are the Little Man to decide. Do you understand?</p></div>";
 
+	var sample_text = "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p><center><img src='images/EX 1.png' width='800px'></center></div>";
+
     var instructMain = "<div id='instructions'><p><br/>Good, you have demonstrated that you understand the instructions and know what to do for this test.<br/></br>" +
 	    "Use the index finger of your dominant hand to press the buttons and then place your finger on Home Base and wait for the next picture.</br></br>"+
 	    "You will now have 32 test trials, just like the practice trials, but you will not be told whether your answer is correct.<br/>" +
@@ -230,7 +232,7 @@ function exportToCsv(filename, rows) {
 	timing_post_trial: 0,
 	data: {stimulus_type: 'left'},
 	is_html: true,
-	stimulus: "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p><center><img src='images/EX 1.png' width='800px'></center></div>",
+	stimulus: sample_text,
 	on_finish: function(data){
 		//label data as example
 		jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -301,7 +303,7 @@ function exportToCsv(filename, rows) {
 	timing_post_trial: 0,
 	data: {stimulus_type: 'left'},
 	is_html: true,
-	timeline: [{stimulus: "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p><br/><center><img src='images/EX 1.png' width='800px'></center></div>",
+	timeline: [{stimulus: sample_text,
 		on_finish: function(data){
 			//label data as example
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -380,7 +382,7 @@ function exportToCsv(filename, rows) {
 	timing_post_trial: 0,
 	data: {stimulus_type: 'left'},
 	is_html: true,
-	timeline: [{stimulus: "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p><br/><center><img src='images/EX 1.png' width='800px'></center></div>",
+	timeline: [{stimulus: sample_text,
 		on_finish: function(data){
 			//label data as example
 			jsPsych.data.addDataToLastTrial({is_data_element: false});
@@ -459,7 +461,7 @@ function exportToCsv(filename, rows) {
 	timing_post_trial: 0,
 	data: {stimulus_type: 'left'},
 	is_html: true,
-	timeline: [{stimulus: "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p><br/><center><img src='images/EX 1.png' width='800px'></center></div>",
+	timeline: [{stimulus: sample_text,
 		on_finish: function(data){
 			//label data as example
 			jsPsych.data.addDataToLastTrial({is_data_element: false});

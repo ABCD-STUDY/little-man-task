@@ -205,13 +205,13 @@ function exportToCsv(filename, rows) {
 	    "</p><center><img src='images/examplepic.png'></center><p>" +
 	    "<br/>In this case he is holding the object in his right hand.</p></div>";
 
-	var sample_correct = "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p>" + "<center><img src='images/EX 1.png' width='800px'></center>" +
+	var sample_correct = "<div id='instructions'><p>The Little Man shown on the screen has an object in one of his hands.</p>" + "<center><img src='images/EX 1.png' width='800px'></center>" +
 	    "<p>Very good. You must always look very carefully at the Little Man, because sometimes he will be standing upright facing you, but sometimes he will be standing on his head and sometimes he will be facing away from you. You will now have a few practice problems. The computer will tell you if you are correct.</p></div>";
 
-	var sample_wrong = "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p>"+"<center><img src='images/EX 1.png' width='800px'></center>" +
+	var sample_wrong = "<div id='instructions'><p>The Little Man shown on the screen has an object in one of his hands.</p>"+"<center><img src='images/EX 1.png' width='800px'></center>" +
 	    "<p><br/>That answer was wrong. You must answer according to which of the Little Man’s hands the object is in. You must imagine you are the Little Man to decide. Do you understand?</p></div>";
 
-	var sample_text = "<div id='instructions'><p></br>The Little Man shown on the screen has an object in one of his hands.</p><center><img src='images/EX 1.png' width='800px'></center></div>";
+	var sample_text = "<div id='instructions'><p>The Little Man shown on the screen has an object in one of his hands.</p><center><img src='images/EX 1.png' width='800px'></center></div>";
 
     var instructMain = "<div id='instructions'><p><br/>Good, you have demonstrated that you understand the instructions and know what to do for this test.<br/></br>" +
 	    "Use the index finger of your dominant hand to press the buttons and then place your finger on Home Base and wait for the next picture.</br></br>"+

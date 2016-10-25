@@ -22,7 +22,7 @@ $token = "";
 $tokens = json_decode(file_get_contents("tokens.json"), true);
 $token = $tokens[$data['lmt_site']];
 // put your token in here
-$token = "LSKDJFL:SKJDF:LJSDFLJ";
+$token = "TOKENGOHERE";
 
 $participant = $data['lmt_subject_id'];
 $event_name  = $data['lmt_event_name'];
@@ -33,7 +33,6 @@ $pGUID = $participant;
 
 // add tests for subject does not exist,
 // copy values after successful import to data-import-archive and data-import-fail
-
 
 foreach ( $data['data'] as $entry ) {
 
@@ -53,7 +52,7 @@ foreach ( $data['data'] as $entry ) {
       //$payload["mrif_not_dte"] = date("Y-m-d");
   //}
   );
-  
+
   $data = array(
       'token'             => $token,
       'content'           => 'record',

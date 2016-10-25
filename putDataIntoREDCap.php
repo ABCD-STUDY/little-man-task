@@ -42,10 +42,10 @@ foreach ( $data['data'] as $entry ) {
   //"mrif_herniation_copy" => $herniation,
   //"mrif_other_notes_copy" => $other_notes,
   //"mrif_scan_read_dte" => date("Y-m-d"));
-  if ($score > 2) {
+  //if ($score > 2) {
       // also mark the date a first note was send
-      $payload["mrif_not_dte"] = date("Y-m-d");
-  }
+      //$payload["mrif_not_dte"] = date("Y-m-d");
+  //}
   
   $data = array(
       'token'             => $token,
@@ -55,7 +55,7 @@ foreach ( $data['data'] as $entry ) {
       'overwriteBehavior' => 'normal',
       'data'              => '[' . json_encode($payload) . ']',
       'returnContent'     => 'count',
-      'returnFormat'      => 'json'
+      'returnFormat'      => 'json' 
   );
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, 'https://abcd-rc.ucsd.edu/redcap/api/');

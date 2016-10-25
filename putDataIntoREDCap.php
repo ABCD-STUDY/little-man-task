@@ -1,5 +1,7 @@
 <?php
 // read a single json file such as data/UCSD/lmt_NDAR_INV31JTFZ92_baseline_year_1_arm_1_01.json
+// usage:
+//   php putDataIntoREDCap.php -f "data/UCSD/lmt_NDAR_INV31JTFZ92_baseline_year_1_arm_1_01.json"
 
 
 $options = getopt("f:");
@@ -19,8 +21,12 @@ $data = json_decode(file_get_contents($options['f']),true);
 $token = "";
 $tokens = json_decode(file_get_contents("tokens.json"), true);
 $token = $tokens[$data['lmt_site']];
+// put your token in here
+$token = "LSKDJFL:SKJDF:LJSDFLJ";
+
 $participant = $data['lmt_subject_id'];
 $event_name  = $data['lmt_event_name'];
+$pGUID = $participant;
 
 // send over one data set
 // create loop over all data entries in $data['data']
@@ -46,6 +52,7 @@ foreach ( $data['data'] as $entry ) {
       // also mark the date a first note was send
       //$payload["mrif_not_dte"] = date("Y-m-d");
   //}
+  );
   
   $data = array(
       'token'             => $token,

@@ -27,6 +27,8 @@ function checkConnectionStatus() {
 
 
 function storeSubjectAndName() {
+    if (jQuery('#participant-names-from-redcap').val() == null)
+	return;
     var subject = jQuery('#participant-names-from-redcap').val().replace(/\s/g, '');
     var session = jQuery('#sessions-from-redcap').val().replace(/\s/g, '');
     var run     = jQuery('#sessions-run').val();
@@ -131,6 +133,8 @@ function getParticipantNamesFromREDCap() {
 	for (var i = 0; i < data.length; i++) {
 	    jQuery('#participant-names-from-redcap').append("<option value=\"" + data[i] + "\">" + data[i] + "</option>");
 	}
+	jQuery('#participant-names-from-redcap').select2({ placeholder: "Select a pGUID" });
+	jQuery('#participant-names-from-redcap').val("").trigger('change');
 	storeSubjectAndName();
     });
 }

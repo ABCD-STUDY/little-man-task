@@ -79,6 +79,7 @@
   <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.min.css' />
   <!-- media="print" is required to display the fullcalendar header buttons -->
   <link rel='stylesheet' media='print' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.print.css' />
+  <link rel='stylesheet' href='css/select2.min.css' />
 
   <link rel="stylesheet" href="css/style.css">
 
@@ -384,6 +385,7 @@
 
   <script src="js/bootstrap-datetimepicker.js"></script>
   <script src="js/bootstrap-datepicker.js"></script>
+  <script src="js/select2.full.min.js"></script>
 
   <script type="text/javascript" src="js/all.js"></script>
 

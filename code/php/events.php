@@ -110,4 +110,21 @@
   }
   file_put_contents($events_file, json_encode( $ar, JSON_PRETTY_PRINT ));
   echo(json_encode ( array( "message" => "Saved session", "ok" => "1" ) ) );
+  
+  //scripts to manage data and derived results
+  $logfile = "/var/www/html/applications/little-man-task/code/php/events_log.log";
+  //syslog(LOG_EMERG, "before try");
+  // try derive scores
+  $str = "/usr/bin/php /var/www/html/applications/little-man-task/putDataIntoREDCap.php -f ".$events_file; 
+  try {
+    //script to send raw data to redcap.
+    $ret = shell_exec($str);
+    //syslog(LOG_EMERG, "after shell exec".$ret);
+    file_put_contents($logfile, "\n".date("m/d/y G.i:s<br>", time())." putDataIntoREDCap output from: ".$events_file." ".$ret." ".$str, FILE_APPEND);  
+    //shell_exec( retrieve data script );
+  } catch(Exception $e) {
+    file_put_contents($logfile, "\n".date("m/d/y G.i:s<br>", time())." putDataIntoREDCap error in events file :".$events_file." ".$str, FILE_APPEND);  
+  }
+  //syslog(LOG_EMERG, "after both try");
+  
 ?>

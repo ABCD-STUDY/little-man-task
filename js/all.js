@@ -38,7 +38,7 @@ function storeSubjectAndName() {
     jQuery('.session-id').text("Session: " + session);
     jQuery('.run-id').text("Run: " + run);
     
-    if (subject.length > 0 && session.length > 0) {
+    if (subject !== null && subject !== "" && session !== null && session !== "" && subject.length > 0 && session.length > 0) {
 	jQuery('#session-active').text("Active Session");
 	jQuery('#calendar-loc').fadeIn();
 	jQuery('#open-save-session').fadeIn();
@@ -63,8 +63,8 @@ function storeSubjectAndName() {
 // forget about the current session
 function closeSession() {
     // just set to empty strings and submit
-    jQuery('#participants-from-redcap').val(0);
-    jQuery('#sessions-from-redcap').val(1);
+    jQuery('#participants-from-redcap').val("");
+    jQuery('#sessions-from-redcap').val("");
     jQuery('#session-run').val("01");
     storeSubjectAndName();
 }
@@ -118,9 +118,12 @@ function getSessionNamesFromREDCap() {
     jQuery.getJSON('/code/php/getRCEvents.php', function(data) {
 	for (var i = 0; i < data.length; i++) {
 	    val = "";
+	    /*
 	    if (i == 1) {
-		val = "selected=\"selected\"";
+	        val = "selected=\"selected\"";
 	    }
+	    */
+	    if (data[i].unique_event_name !== "baseline_year_1_arm_1") continue;
 	    jQuery('#sessions-from-redcap').append("<option " + val + " value=\"" + data[i].unique_event_name + "\">" + data[i].event_name + "</option>");
 	}
 	getParticipantNamesFromREDCap();
@@ -174,6 +177,14 @@ jQuery(document).ready(function() {
     });
 
     jQuery('#open-lmt-button').click(function() {
+	var pGUID   = jQuery('#participants-from-redcap').val();
+	var session = jQuery('#sessions-from-redcap').val();
+	var run     = jQuery('#session-run').val();
+	if (pGUID === null || pGUID === "" || session === null || session === "" || run === null || run === "") {
+	    alert("Error: all values are mandatory.");
+	    return true;
+	}
+	
         jQuery.post('code/php/events.php', { "action": "test" }, function(data) {
 	    // check if the current data file can be saved - does not exist already on the server and would be overwritten
 	    console.log('would be overwritten');
@@ -194,6 +205,14 @@ jQuery(document).ready(function() {
     });
     
     jQuery('#open-lmt2-button').click(function() {
+	var pGUID   = jQuery('#participants-from-redcap').val();
+	var session = jQuery('#sessions-from-redcap').val();
+	var run     = jQuery('#session-run').val();
+	if (pGUID === null || pGUID === "" || session === null || session === "" || run === null || run === "") {
+	    alert("Error: all values are mandatory.");
+	    return true;
+	}
+
         // mark this one as started
 	jQuery.getJSON('code/php/events.php?action=mark&status=started&user_name='+user_name, function(data) {
 	    console.log(data);
@@ -233,7 +252,6 @@ jQuery(document).ready(function() {
 		});
 	    };
 	})( jQuery('#session-participant').val(), jQuery('#session-name').val() ), 1000);
-	
     });
     
     jQuery('#session-date-picker').datetimepicker({language: 'en', format: "MM/DD/YYYY" });    

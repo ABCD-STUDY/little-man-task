@@ -24,7 +24,7 @@
   foreach ($permissions as $per) {
      $a = explode("Site", $per); // permissions should be structured as "Site<site name>"
 
-     if (count($a) > 0) {
+     if (count($a) > 1) {
         $site = $a[1];
 	break;
      }
@@ -191,7 +191,7 @@
                   </div> -->
 
 		  <div class="form-group">
-                    <label for="participant-names-from-redcap" class="control-label">Select a participant (screened, from your DAG)</label>
+                    <label for="participant-names-from-redcap" class="control-label">Select a participant (screened, from your data access group)</label>
 		    <select class="form-control" id="participant-names-from-redcap"></select>
                   </div>
 
@@ -386,9 +386,12 @@
   <script src="js/bootstrap-datetimepicker.js"></script>
   <script src="js/bootstrap-datepicker.js"></script>
   <script src="js/select2.full.min.js"></script>
-
+  <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />-->
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>-->
   <script type="text/javascript" src="js/all.js"></script>
-
+  <script type = "text/javascript">
+	$.fn.modal.Constructor.prototype.enforceFocus = function() {};
+  </script>
 </body>
 
 </html>
